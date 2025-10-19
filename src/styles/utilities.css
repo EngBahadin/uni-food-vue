@@ -1,0 +1,13 @@
+/* Utility Classes */
+
+/* Centering Utility */
+.cen {
+  left: 0%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Custom Utility Classes */
+@utility font-poppins {
+  font-family: 'Poppins', sans-serif;
+}

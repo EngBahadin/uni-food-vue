@@ -1,0 +1,264 @@
+/* Typography System */
+@utility text-sub-heading-1-regular {
+  font-size: 34px;
+  line-height: 42.5px;
+  font-weight: 400;
+}
+
+@utility text-sub-heading-1-medium {
+  font-size: 34px;
+  line-height: 42.5px;
+  font-weight: 500;
+}
+
+@utility text-sub-heading-1-semiBold {
+  font-size: 34px;
+  line-height: 42.5px;
+  font-weight: 600;
+}
+
+@utility text-sub-heading-1-bold {
+  font-size: 34px;
+  line-height: 42.5px;
+  font-weight: 700;
+}
+
+@utility text-sub-heading-2-regular {
+  font-size: 27px;
+  line-height: 37.8px;
+  font-weight: 400;
+}
+
+@utility text-sub-heading-2-medium {
+  font-size: 27px;
+  line-height: 37.8px;
+  font-weight: 500;
+}
+
+@utility text-sub-heading-2-semiBold {
+  font-size: 27px;
+  line-height: 37.8px;
+  font-weight: 600;
+}
+
+@utility text-sub-heading-2-bold {
+  font-size: 27px;
+  line-height: 37.8px;
+  font-weight: 700;
+}
+
+@utility text-body-1-regular {
+  font-size: 24px;
+  line-height: 33.6px;
+  font-weight: 400;
+}
+
+@utility text-body-1-medium {
+  font-size: 24px;
+  line-height: 33.6px;
+  font-weight: 500;
+}
+
+@utility text-body-1-semiBold {
+  font-size: 24px;
+  line-height: 33.6px;
+  font-weight: 600;
+}
+
+@utility text-body-1-bold {
+  font-size: 24px;
+  line-height: 33.6px;
+  font-weight: 700;
+}
+
+@utility text-body-2-regular {
+  font-size: 22px;
+  line-height: 30.8px;
+  font-weight: 400;
+}
+
+@utility text-body-2-medium {
+  font-size: 22px;
+  line-height: 30.8px;
+  font-weight: 500;
+}
+
+@utility text-body-2-semiBold {
+  font-size: 22px;
+  line-height: 30.8px;
+  font-weight: 600;
+}
+
+@utility text-body-2-bold {
+  font-size: 22px;
+  line-height: 30.8px;
+  font-weight: 700;
+}
+
+@utility text-body-3-regular {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 400;
+}
+
+@utility text-body-3-medium {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 500;
+}
+
+@utility text-body-3-semiBold {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 600;
+}
+
+@utility text-body-3-bold {
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 700;
+}
+
+@utility text-body-4-regular {
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 400;
+}
+
+@utility text-body-4-medium {
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 500;
+}
+
+@utility text-body-4-semiBold {
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 600;
+}
+
+@utility text-body-4-bold {
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 700;
+}
+
+@utility text-text-1-regular {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+@utility text-text-1-medium {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+@utility text-text-1-semiBold {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+@utility text-text-1-bold {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+@utility text-text-2-regular {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+}
+
+@utility text-text-2-medium {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+}
+
+@utility text-text-2-semiBold {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 600;
+}
+
+@utility text-text-2-bold {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 700;
+}
+
+@utility text-text-3-regular {
+  font-size: 12px;
+  line-height: 18.6px;
+  font-weight: 400;
+}
+
+@utility text-text-3-medium {
+  font-size: 12px;
+  line-height: 18.6px;
+  font-weight: 500;
+}
+
+@utility text-text-3-semiBold {
+  font-size: 12px;
+  line-height: 18.6px;
+  font-weight: 600;
+}
+
+@utility text-text-3-bold {
+  font-size: 12px;
+  line-height: 18.6px;
+  font-weight: 700;
+}
+
+@utility text-caption-1-regular {
+  font-size: 11px;
+  line-height: 17.05px;
+  font-weight: 400;
+}
+
+@utility text-caption-1-medium {
+  font-size: 11px;
+  line-height: 17.05px;
+  font-weight: 500;
+}
+
+@utility text-caption-1-semiBold {
+  font-size: 11px;
+  line-height: 17.05px;
+  font-weight: 600;
+}
+
+@utility text-caption-1-bold {
+  font-size: 11px;
+  line-height: 17.05px;
+  font-weight: 700;
+}
+
+@utility text-caption-2-regular {
+  font-size: 9px;
+  line-height: 14.4px;
+  font-weight: 400;
+}
+
+@utility text-caption-2-medium {
+  font-size: 9px;
+  line-height: 14.4px;
+  font-weight: 500;
+}
+
+@utility text-caption-2-semiBold {
+  font-size: 9px;
+  line-height: 14.4px;
+  font-weight: 600;
+}
+
+@utility text-caption-2-bold {
+  font-size: 9px;
+  line-height: 14.4px;
+  font-weight: 700;
+}

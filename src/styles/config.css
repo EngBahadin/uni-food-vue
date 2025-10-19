@@ -1,0 +1,75 @@
+/* Tailwind v4 Configuration */
+@theme {
+  /* Colors */
+  --color-white: var(--white);
+  --color-pure-white: var(--pure-white);
+  --color-black: var(--black);
+  --color-pure-black: var(--pure-black);
+  --color-primary: var(--primary);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --color-red-bg: #fde1e1;
+
+  /* Gray Scale */
+  --color-gray-100: #908f8f;
+  --color-gray-75: #acabab;
+  --color-gray-50: #c7c6c6;
+  --color-gray-25: #e3e3e3;
+  --color-gray-15: #efeeee;
+
+  /* Font Families */
+  --font-family-poppins: 'Poppins', sans-serif;
+
+  /* Breakpoints */
+  --breakpoint-mini-mobile: 360px;
+
+  /* Container */
+  --container-center: true;
+  --container-padding: 2rem;
+  --container-screen-2xl: 1400px;
+
+  /* Animations */
+  --animate-gradient-pulse: gradient-pulse 3.5s ease-in-out infinite;
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+/* CSS Variables for Design System */
+:root {
+  /* Light Mode Colors */
+  --primary: #8e5c11;
+  --success: #067f18;
+  --error: #c92424;
+  --warning: #dc9f04;
+  --info: #2582ee;
+  --pure-white: #ffffff;
+  --white: #f4f4f4;
+  --black: #2a2a2a;
+  --pure-black: #000000;
+
+  /* Dark Mode Colors (overridden) */
+  --primary-dark: #f5a52e;
+  --success-dark: #30b043;
+  --error-dark: #ff2a2a;
+  --warning-dark: #ffbb0b;
+  --info-dark: #3d98ff;
+  --pure-white-dark: #000000;
+  --white-dark: #2a2a2a;
+  --black-dark: #f4f4f4;
+  --pure-black-dark: #ffffff;
+}
+
+/* Dark mode settings */
+html.dark {
+  --primary: var(--primary-dark);
+  --success: var(--success-dark);
+  --error: var(--error-dark);
+  --warning: var(--warning-dark);
+  --info: var(--info-dark);
+  --pure-white: var(--pure-white-dark);
+  --white: var(--white-dark);
+  --black: var(--black-dark);
+  --pure-black: var(--pure-black-dark);
+}
