@@ -25,7 +25,7 @@ export const categories: Category[] = [
       {
         id: 1,
         name: 'Classic Burger',
-        image: './cheese-burger.png',
+        image: '/cheese-burger.png',
         price: 15.99,
         prep_time: 15,
         review: { avg_rating: 4.5, count: 120 },
@@ -34,7 +34,7 @@ export const categories: Category[] = [
       {
         id: 2,
         name: 'Cheese Burger',
-        image: './cheese-burger.png',
+        image: '/cheese-burger.png',
         price: 17.99,
         prep_time: 18,
         review: { avg_rating: 4.7, count: 95 },
@@ -43,7 +43,7 @@ export const categories: Category[] = [
       {
         id: 3,
         name: 'Chicken Burger',
-        image: './cheese-burger.png',
+        image: '/cheese-burger.png',
         price: 16.99,
         prep_time: 20,
         review: { avg_rating: 4.3, count: 78 },
@@ -52,7 +52,7 @@ export const categories: Category[] = [
       {
         id: 4,
         name: 'Bacon Burger',
-        image: './cheese-burger.png',
+        image: '/cheese-burger.png',
         price: 19.99,
         prep_time: 22,
         review: { avg_rating: 4.6, count: 85 },
@@ -61,7 +61,7 @@ export const categories: Category[] = [
       {
         id: 5,
         name: 'Veggie Burger',
-        image: './cheese-burger.png',
+        image: '/cheese-burger.png',
         price: 14.99,
         prep_time: 16,
         review: { avg_rating: 4.2, count: 65 },
@@ -70,7 +70,7 @@ export const categories: Category[] = [
       {
         id: 6,
         name: 'Double Cheese Burger',
-        image: './cheese-burger.png',
+        image: '/cheese-burger.png',
         price: 21.99,
         prep_time: 25,
         review: { avg_rating: 4.8, count: 110 },
@@ -232,7 +232,7 @@ export const categories: Category[] = [
       {
         id: 22,
         name: 'Chicken Wings',
-        image: './cheese-burger.png',
+        image: '/cheese-burger.png',
         price: 12.99,
         prep_time: 20,
         review: { avg_rating: 4.5, count: 100 },
@@ -241,7 +241,7 @@ export const categories: Category[] = [
       {
         id: 23,
         name: 'French Fries',
-        image: './cheese-burger.png',
+        image: '/cheese-burger.png',
         price: 8.99,
         prep_time: 12,
         review: { avg_rating: 4.2, count: 150 },
@@ -250,7 +250,7 @@ export const categories: Category[] = [
       {
         id: 24,
         name: 'Chicken Nuggets',
-        image: './cheese-burger.png',
+        image: '/cheese-burger.png',
         price: 11.99,
         prep_time: 15,
         review: { avg_rating: 4.3, count: 85 },
@@ -259,7 +259,7 @@ export const categories: Category[] = [
       {
         id: 25,
         name: 'Onion Rings',
-        image: './cheese-burger.png',
+        image: '/cheese-burger.png',
         price: 9.99,
         prep_time: 14,
         review: { avg_rating: 4.1, count: 70 },

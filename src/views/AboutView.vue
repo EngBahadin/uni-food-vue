@@ -11,7 +11,7 @@
       </p>
     </div>
     <img
-      src="./bro.png"
+      src="/bro.png"
       alt="Bro is ordering food"
       class="object-contain md:w-[412px] md:h-96 w-96 h-80 self-end"
     />

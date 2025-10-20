@@ -8,16 +8,16 @@ export const foods: Food[] = [
   {
     id: 1,
     name: 'Pizza',
-    image: './pizza.png',
+    image: '/pizza.png',
   },
   {
     id: 3,
     name: 'Cheese Burger',
-    image: './cheese-burger.png',
+    image: '/cheese-burger.png',
   },
   {
     id: 4,
     name: 'Biryani',
-    image: './bryani.png',
+    image: '/bryani.png',
   },
 ]
