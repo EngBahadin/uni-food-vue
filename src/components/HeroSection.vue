@@ -24,7 +24,7 @@
     <div class="relative mt-8 md:mt-0 w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72">
       <img
         class="absolute w-full h-full object-contain"
-        :src="theme === 'light' ? '/Ellipse.png' : '/Ellipse-dm.png'"
+        :src="theme === 'light' ? `${basePath}Ellipse.png` : `${basePath}Ellipse-dm.png`"
         alt="Ellipse"
       />
 
@@ -42,6 +42,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useTheme } from '../composables/useTheme'
 import { foods } from '../utils/foods'
 
+const basePath = import.meta.env.BASE_URL
 const { theme } = useTheme()
 const imageIndex = ref(0)
 

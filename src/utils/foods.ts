@@ -4,20 +4,22 @@ export interface Food {
   image: string
 }
 
+const basePath = import.meta.env.BASE_URL
+
 export const foods: Food[] = [
   {
     id: 1,
     name: 'Pizza',
-    image: '/pizza.png',
+    image: `${basePath}pizza.png`,
   },
   {
     id: 3,
     name: 'Cheese Burger',
-    image: '/cheese-burger.png',
+    image: `${basePath}cheese-burger.png`,
   },
   {
     id: 4,
     name: 'Biryani',
-    image: '/bryani.png',
+    image: `${basePath}bryani.png`,
   },
 ]

@@ -11,6 +11,8 @@ export interface FoodItem {
   is_favorite: boolean
 }
 
+const basePath = import.meta.env.BASE_URL
+
 export interface Category {
   id: number
   name: string
@@ -25,7 +27,7 @@ export const categories: Category[] = [
       {
         id: 1,
         name: 'Classic Burger',
-        image: '/cheese-burger.png',
+        image: `${basePath}cheese-burger.png`,
         price: 15.99,
         prep_time: 15,
         review: { avg_rating: 4.5, count: 120 },
@@ -34,7 +36,7 @@ export const categories: Category[] = [
       {
         id: 2,
         name: 'Cheese Burger',
-        image: '/cheese-burger.png',
+        image: `${basePath}cheese-burger.png`,
         price: 17.99,
         prep_time: 18,
         review: { avg_rating: 4.7, count: 95 },
@@ -43,7 +45,7 @@ export const categories: Category[] = [
       {
         id: 3,
         name: 'Chicken Burger',
-        image: '/cheese-burger.png',
+        image: `${basePath}cheese-burger.png`,
         price: 16.99,
         prep_time: 20,
         review: { avg_rating: 4.3, count: 78 },
@@ -52,7 +54,7 @@ export const categories: Category[] = [
       {
         id: 4,
         name: 'Bacon Burger',
-        image: '/cheese-burger.png',
+        image: `${basePath}cheese-burger.png`,
         price: 19.99,
         prep_time: 22,
         review: { avg_rating: 4.6, count: 85 },
@@ -61,7 +63,7 @@ export const categories: Category[] = [
       {
         id: 5,
         name: 'Veggie Burger',
-        image: '/cheese-burger.png',
+        image: `${basePath}cheese-burger.png`,
         price: 14.99,
         prep_time: 16,
         review: { avg_rating: 4.2, count: 65 },
@@ -70,7 +72,7 @@ export const categories: Category[] = [
       {
         id: 6,
         name: 'Double Cheese Burger',
-        image: '/cheese-burger.png',
+        image: `${basePath}cheese-burger.png`,
         price: 21.99,
         prep_time: 25,
         review: { avg_rating: 4.8, count: 110 },
@@ -85,7 +87,7 @@ export const categories: Category[] = [
       {
         id: 7,
         name: 'Margherita Pizza',
-        image: '/pizza.png',
+        image: `${basePath}pizza.png`,
         price: 22.99,
         prep_time: 25,
         review: { avg_rating: 4.6, count: 150 },
@@ -94,7 +96,7 @@ export const categories: Category[] = [
       {
         id: 8,
         name: 'Pepperoni Pizza',
-        image: '/pizza.png',
+        image: `${basePath}pizza.png`,
         price: 24.99,
         prep_time: 30,
         review: { avg_rating: 4.8, count: 200 },
@@ -103,7 +105,7 @@ export const categories: Category[] = [
       {
         id: 9,
         name: 'BBQ Chicken Pizza',
-        image: '/pizza.png',
+        image: `${basePath}pizza.png`,
         price: 26.99,
         prep_time: 28,
         review: { avg_rating: 4.7, count: 135 },
@@ -112,7 +114,7 @@ export const categories: Category[] = [
       {
         id: 10,
         name: 'Supreme Pizza',
-        image: '/pizza.png',
+        image: `${basePath}pizza.png`,
         price: 28.99,
         prep_time: 35,
         review: { avg_rating: 4.9, count: 180 },
@@ -121,7 +123,7 @@ export const categories: Category[] = [
       {
         id: 11,
         name: 'Hawaiian Pizza',
-        image: '/pizza.png',
+        image: `${basePath}pizza.png`,
         price: 25.99,
         prep_time: 32,
         review: { avg_rating: 4.4, count: 95 },
@@ -130,7 +132,7 @@ export const categories: Category[] = [
       {
         id: 12,
         name: 'Meat Lovers Pizza',
-        image: '/pizza.png',
+        image: `${basePath}pizza.png`,
         price: 29.99,
         prep_time: 38,
         review: { avg_rating: 4.8, count: 160 },
@@ -139,7 +141,7 @@ export const categories: Category[] = [
       {
         id: 13,
         name: 'Vegetarian Pizza',
-        image: '/pizza.png',
+        image: `${basePath}pizza.png`,
         price: 23.99,
         prep_time: 26,
         review: { avg_rating: 4.3, count: 75 },
@@ -154,7 +156,7 @@ export const categories: Category[] = [
       {
         id: 14,
         name: 'Chicken Biryani',
-        image: '/bryani.png',
+        image: `${basePath}bryani.png`,
         price: 18.99,
         prep_time: 35,
         review: { avg_rating: 4.4, count: 85 },
@@ -163,7 +165,7 @@ export const categories: Category[] = [
       {
         id: 15,
         name: 'Bro Special',
-        image: '/bryani.png',
+        image: `${basePath}bryani.png`,
         price: 19.99,
         prep_time: 25,
         review: { avg_rating: 4.9, count: 65 },
@@ -172,7 +174,7 @@ export const categories: Category[] = [
       {
         id: 16,
         name: 'Beef Biryani',
-        image: '/bryani.png',
+        image: `${basePath}bryani.png`,
         price: 21.99,
         prep_time: 40,
         review: { avg_rating: 4.6, count: 95 },
@@ -181,7 +183,7 @@ export const categories: Category[] = [
       {
         id: 17,
         name: 'Vegetable Biryani',
-        image: '/bryani.png',
+        image: `${basePath}bryani.png`,
         price: 16.99,
         prep_time: 30,
         review: { avg_rating: 4.2, count: 55 },
@@ -190,7 +192,7 @@ export const categories: Category[] = [
       {
         id: 18,
         name: 'Mutton Biryani',
-        image: '/bryani.png',
+        image: `${basePath}bryani.png`,
         price: 24.99,
         prep_time: 45,
         review: { avg_rating: 4.7, count: 70 },
@@ -199,7 +201,7 @@ export const categories: Category[] = [
       {
         id: 19,
         name: 'Fish Biryani',
-        image: '/bryani.png',
+        image: `${basePath}bryani.png`,
         price: 22.99,
         prep_time: 38,
         review: { avg_rating: 4.5, count: 60 },
@@ -208,7 +210,7 @@ export const categories: Category[] = [
       {
         id: 20,
         name: 'Egg Biryani',
-        image: '/bryani.png',
+        image: `${basePath}bryani.png`,
         price: 17.99,
         prep_time: 28,
         review: { avg_rating: 4.3, count: 45 },
@@ -217,7 +219,7 @@ export const categories: Category[] = [
       {
         id: 21,
         name: 'Hyderabadi Biryani',
-        image: '/bryani.png',
+        image: `${basePath}bryani.png`,
         price: 23.99,
         prep_time: 42,
         review: { avg_rating: 4.8, count: 80 },
@@ -232,7 +234,7 @@ export const categories: Category[] = [
       {
         id: 22,
         name: 'Chicken Wings',
-        image: '/cheese-burger.png',
+        image: `${basePath}cheese-burger.png`,
         price: 12.99,
         prep_time: 20,
         review: { avg_rating: 4.5, count: 100 },
@@ -241,7 +243,7 @@ export const categories: Category[] = [
       {
         id: 23,
         name: 'French Fries',
-        image: '/cheese-burger.png',
+        image: `${basePath}cheese-burger.png`,
         price: 8.99,
         prep_time: 12,
         review: { avg_rating: 4.2, count: 150 },
@@ -250,7 +252,7 @@ export const categories: Category[] = [
       {
         id: 24,
         name: 'Chicken Nuggets',
-        image: '/cheese-burger.png',
+        image: `${basePath}cheese-burger.png`,
         price: 11.99,
         prep_time: 15,
         review: { avg_rating: 4.3, count: 85 },
@@ -259,7 +261,7 @@ export const categories: Category[] = [
       {
         id: 25,
         name: 'Onion Rings',
-        image: '/cheese-burger.png',
+        image: `${basePath}cheese-burger.png`,
         price: 9.99,
         prep_time: 14,
         review: { avg_rating: 4.1, count: 70 },
@@ -274,7 +276,7 @@ export const categories: Category[] = [
       {
         id: 26,
         name: 'Chocolate Cake',
-        image: '/pizza.png',
+        image: `${basePath}pizza.png`,
         price: 8.99,
         prep_time: 10,
         review: { avg_rating: 4.7, count: 120 },
@@ -283,7 +285,7 @@ export const categories: Category[] = [
       {
         id: 27,
         name: 'Ice Cream',
-        image: '/pizza.png',
+        image: `${basePath}pizza.png`,
         price: 6.99,
         prep_time: 5,
         review: { avg_rating: 4.4, count: 200 },
@@ -292,7 +294,7 @@ export const categories: Category[] = [
       {
         id: 28,
         name: 'Cheesecake',
-        image: '/pizza.png',
+        image: `${basePath}pizza.png`,
         price: 9.99,
         prep_time: 8,
         review: { avg_rating: 4.6, count: 90 },
@@ -301,7 +303,7 @@ export const categories: Category[] = [
       {
         id: 29,
         name: 'Tiramisu',
-        image: '/pizza.png',
+        image: `${basePath}pizza.png`,
         price: 10.99,
         prep_time: 12,
         review: { avg_rating: 4.8, count: 75 },

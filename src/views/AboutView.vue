@@ -11,7 +11,7 @@
       </p>
     </div>
     <img
-      src="/bro.png"
+      :src="`${basePath}bro.png`"
       alt="Bro is ordering food"
       class="object-contain md:w-[412px] md:h-96 w-96 h-80 self-end"
     />
@@ -19,5 +19,5 @@
 </template>
 
 <script setup lang="ts">
-// About page logic can be added here
+const basePath = import.meta.env.BASE_URL
 </script>

@@ -7,7 +7,9 @@
       <div class="hidden md:flex items-center gap-8">
         <router-link to="/" class="flex items-center">
           <img
-            :src="theme === 'light' ? '/unifood-logo.png' : '/unifood-logo-dm.png'"
+            :src="
+              theme === 'light' ? `${basePath}unifood-logo.png` : `${basePath}unifood-logo-dm.png`
+            "
             alt="UniFood logo"
             class="w-8 h-8 md:w-10 md:h-10 cursor-pointer"
           />
@@ -48,7 +50,9 @@
       <div class="md:hidden">
         <router-link to="/" class="flex items-center">
           <img
-            :src="theme === 'light' ? '/unifood-logo.png' : '/unifood-logo-dm.png'"
+            :src="
+              theme === 'light' ? `${basePath}unifood-logo.png` : `${basePath}unifood-logo-dm.png`
+            "
             alt="UniFood logo"
             class="w-8 h-8"
           />
@@ -146,6 +150,7 @@
 import { ref } from 'vue'
 import { useTheme } from '../composables/useTheme'
 
+const basePath = import.meta.env.BASE_URL
 const { theme, changeTheme } = useTheme()
 const showMobileMenu = ref(false)
 
