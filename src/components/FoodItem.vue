@@ -64,7 +64,7 @@
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import type { FoodItem as FoodItemType } from '../utils/menuData'
+import type { FoodItem as FoodItemType } from '../../types/index'
 
 interface Props {
   item: FoodItemType

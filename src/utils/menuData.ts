@@ -1,23 +1,6 @@
-export interface FoodItem {
-  id: number
-  name: string
-  image: string
-  price: number
-  prep_time: number
-  review: {
-    avg_rating: number
-    count: number
-  }
-  is_favorite: boolean
-}
+import type {FoodItem,Category} from '../../types/index'
 
 const basePath = import.meta.env.BASE_URL
-
-export interface Category {
-  id: number
-  name: string
-  items: FoodItem[]
-}
 
 export const categories: Category[] = [
   {

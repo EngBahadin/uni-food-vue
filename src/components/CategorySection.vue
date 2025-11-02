@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { Category } from '../utils/menuData'
+import type { Category } from '../../types/index'
 import FoodItem from './FoodItem.vue'
 
 interface Props {

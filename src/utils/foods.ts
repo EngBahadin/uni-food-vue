@@ -1,8 +1,4 @@
-export interface Food {
-  id: number
-  name: string
-  image: string
-}
+import type {Food} from '../../types/index'
 
 const basePath = import.meta.env.BASE_URL
 
