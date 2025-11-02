@@ -33,30 +33,30 @@ export const foods = [
   },
 ];
 
-export function addMinutesToTime(timeStr: string, minutesToAdd: number) {
-  // Parse the time string
-  const [time, modifier] = timeStr.split(" ");
-  let [hours, minutes] = time.split(":").map(Number);
+// export function addMinutesToTime(timeStr: string, minutesToAdd: number) {
+//   // Parse the time string
+//   const [time, modifier] = timeStr.split(" ");
+//   let [hours, minutes] = time.split(":").map(Number);
 
-  // Convert to 24-hour format if necessary
-  if (modifier === "PM" && hours !== 12) {
-    hours += 12;
-  } else if (modifier === "AM" && hours === 12) {
-    hours = 0;
-  }
+//   // Convert to 24-hour format if necessary
+//   if (modifier === "PM" && hours !== 12) {
+//     hours += 12;
+//   } else if (modifier === "AM" && hours === 12) {
+//     hours = 0;
+//   }
 
-  // Add the minutes
-  const totalMinutes = hours * 60 + minutes + minutesToAdd;
+//   // Add the minutes
+//   const totalMinutes = hours * 60 + minutes + minutesToAdd;
 
-  // Calculate the new hours and minutes
-  const newHours = Math.floor(totalMinutes / 60) % 24;
-  const newMinutes = totalMinutes % 60;
+//   // Calculate the new hours and minutes
+//   const newHours = Math.floor(totalMinutes / 60) % 24;
+//   const newMinutes = totalMinutes % 60;
 
-  // Convert back to 12-hour format
-  const newModifier = newHours >= 12 ? "PM" : "AM";
-  const displayHours = newHours % 12 || 12;
+//   // Convert back to 12-hour format
+//   const newModifier = newHours >= 12 ? "PM" : "AM";
+//   const displayHours = newHours % 12 || 12;
 
-  // Format the time string
-  const formattedMinutes = String(newMinutes).padStart(2, "0");
-  return `${displayHours}:${formattedMinutes} ${newModifier}`;
-}
+//   // Format the time string
+//   const formattedMinutes = String(newMinutes).padStart(2, "0");
+//   return `${displayHours}:${formattedMinutes} ${newModifier}`;
+// }
