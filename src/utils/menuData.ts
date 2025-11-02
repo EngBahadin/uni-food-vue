@@ -1,4 +1,4 @@
-import type {FoodItem,Category} from '../../types/index'
+import type { Category } from '../../types/index'
 
 const basePath = import.meta.env.BASE_URL
 
