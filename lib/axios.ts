@@ -9,11 +9,18 @@ import axios from 'axios'
 // In production, use full URL
 const isDevelopment = import.meta.env.DEV
 const backendURL = import.meta.env.VITE_BASE_URL || 'http://localhost:8000'
-export const baseURL = isDevelopment ? '' : backendURL
 
-if (!import.meta.env.VITE_BASE_URL && !isDevelopment) {
-  console.warn('VITE_BASE_URL is not set. Using default:', backendURL)
+// Debug logging
+if (import.meta.env.PROD) {
+  console.log('🌐 Production mode detected')
+  console.log('🔗 Backend URL:', backendURL)
+  if (!import.meta.env.VITE_BASE_URL) {
+    console.error('❌ ERROR: VITE_BASE_URL is not set in production!')
+    console.error('This will cause CORS errors. Please set VITE_BASE_URL in GitHub Secrets.')
+  }
 }
+
+export const baseURL = isDevelopment ? '' : backendURL
 
 const api = axios.create({
   baseURL: isDevelopment ? '/api' : `${backendURL}/api`,
