@@ -7,7 +7,7 @@
     <button
       @click.stop="toggleFavorite"
       class="absolute top-3 right-3 z-10 p-1 transition-all duration-200"
-      :class="item.is_favorite ? 'text-white' : 'text-white'"
+      :class="item.is_favorite ? 'text-red-500' : 'text-gray-300'"
     >
       <Icon :icon="item.is_favorite ? 'mdi:heart' : 'mdi:heart-outline'" class="w-6 h-6" />
     </button>
@@ -32,7 +32,13 @@
         {{ item.name }}
       </h3>
 
-      <p class="text-text-1-medium text-primary font-medium">${{ item.price }}</p>
+      <p class="text-text-1-medium text-primary font-medium">
+        <template v-if="item.price !== null">${{ item.price }}</template>
+        <template v-else-if="item.size_price && item.size_price.length > 0">
+          ${{ item.size_price[0]?.price }}+
+        </template>
+        <template v-else>Price varies</template>
+      </p>
 
       <p class="text-text-3-regular text-gray-100 flex items-center">
         <svg class="sm:w-4 sm:h-4 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,6 +69,7 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import type { FoodItem as FoodItemType } from '../../types/index'
 
@@ -72,10 +79,10 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const router = useRouter()
 
 const handleProductDetail = () => {
-  // Navigate to product detail page
-  console.log('Navigate to product:', props.item.id)
+  router.push(`/product/${props.item.id}`)
 }
 
 const toggleFavorite = () => {

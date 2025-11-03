@@ -1,12 +1,27 @@
 <template>
-  <section class="py-10 bg-white">
+  <section :id="`category-${category.id}`" class="py-10 bg-white scroll-mt-20">
     <div class="mb-2 grid place-content-center">
       <h2 class="text-text-1-medium border-b-2 border-primary pb-2 w-fit text-black">
-        {{ props.category.name }}
+        {{ category.name }}
       </h2>
     </div>
 
     <article
+      v-if="isLoading"
+      class="flex items-center justify-center py-8"
+    >
+      <p class="text-text-2-regular text-gray-100">Loading items...</p>
+    </article>
+
+    <article
+      v-else-if="error"
+      class="flex items-center justify-center py-8"
+    >
+      <p class="text-text-2-regular text-error">Failed to load items</p>
+    </article>
+
+    <article
+      v-else-if="foodItems && foodItems.length > 0"
       ref="scrollContainer"
       @mousedown="handleMouseDown"
       @mouseleave="handleMouseUp"
@@ -15,7 +30,14 @@
       class="grid grid-flow-col gap-6 sm:px-10 px-6 overflow-x-auto scroll-smooth md:py-8 sm:py-7 py-6 cursor-grab select-none scrollbar-hide"
       :class="{ 'cursor-grabbing': isDragging }"
     >
-      <FoodItem v-for="item in props.category.items" :key="item.id" :item="item" layout="scrollx" />
+      <FoodItem v-for="item in foodItems" :key="item.id" :item="item" layout="scrollx" />
+    </article>
+
+    <article
+      v-else
+      class="flex items-center justify-center py-8"
+    >
+      <p class="text-text-2-regular text-gray-50">No items available in this category</p>
     </article>
   </section>
 </template>
@@ -24,12 +46,16 @@
 import { ref } from 'vue'
 import type { Category } from '../../types/index'
 import FoodItem from './FoodItem.vue'
+import { useFoodItemsQuery } from '../../services/query'
 
 interface Props {
   category: Category
 }
 
 const props = defineProps<Props>()
+
+// Fetch food items for this category
+const { data: foodItems, isLoading, error } = useFoodItemsQuery(props.category.id)
 
 // Drag to scroll functionality
 const scrollContainer = ref<HTMLElement>()

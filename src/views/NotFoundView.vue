@@ -3,7 +3,7 @@
     <div class="flex flex-col bg-pure-white items-center justify-center min-h-screen">
       <h1 class="text-center text-primary text-body-1-semiBold mt-8">Page Not Found</h1>
       <img
-        :src="${basePath}404-error.png"
+        :src="`${basePath}404-error.png`"
         alt="404 Not Found"
         class="w-full max-w-[500px] h-auto"
       />

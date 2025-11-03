@@ -1,9 +1,9 @@
 <template>
   <div class="min-h-screen min-w-full">
-    <div v-if="isLoadingCategories" class="flex items-center justify-center min-h-screen">
+    <div v-if="isLoadingCategories" class="flex items-center justify-center py-20">
       <p class="text-text-1-medium text-gray-100">Loading menu...</p>
     </div>
-    <div v-else-if="categoriesError" class="flex items-center justify-center min-h-screen">
+    <div v-else-if="categoriesError" class="flex items-center justify-center py-20">
       <p class="text-text-1-medium text-error">Failed to load menu. Please try again later.</p>
     </div>
     <CategorySection
@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import CategorySection from '../components/CategorySection.vue'
+import CategorySection from './CategorySection.vue'
 import { useCategoriesQuery } from '../../services/query'
 import type { Category } from '../../types/index'
 

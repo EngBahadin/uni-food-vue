@@ -1,6 +1,6 @@
 <template>
   <section
-    class="min-h-screen bg-white flex items-center justify-center px-8 md:px-10 lg:px-20 flex-col md:flex-row md:justify-between"
+    class="min-h-screen bg-pure-white flex items-center justify-center px-8 md:px-10 lg:px-20 flex-col md:flex-row md:justify-between"
   >
     <!-- Content Section -->
     <div class="flex flex-col md:items-start items-center gap-8 md:text-left text-center">

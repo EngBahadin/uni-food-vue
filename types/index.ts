@@ -138,15 +138,26 @@ export interface Review {
   count: number
 }
 
-// Display FoodItem (used in menus/categories)
+// Display FoodItem (used in menus/categories) - matches API response
 export interface FoodItem {
-  id: number // Changed to number to match actual usage
+  id: number
   name: string
+  description: string
   image: string
-  price: number
+  price: number | null
   prep_time: number
+  category: {
+    id: number
+    name: string
+    description: string
+  }
+  size_price: Array<{
+    id: number
+    size: string
+    price: number
+  }>
   review: Review
-  is_favorite: boolean
+  is_favorite: boolean | null
 }
 
 export interface Category {

@@ -5,18 +5,22 @@ import axios from 'axios'
 // import { getCookie } from 'cookies-next' // React/Next.js library - removed
 
 // Use Vite environment variables (must be prefixed with VITE_)
-export const baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:8000'
+// In development, use relative path to leverage Vite proxy (avoids CORS)
+// In production, use full URL
+const isDevelopment = import.meta.env.DEV
+const backendURL = import.meta.env.VITE_BASE_URL || 'http://localhost:8000'
+export const baseURL = isDevelopment ? '' : backendURL
 
-if (!import.meta.env.VITE_BASE_URL) {
-  console.warn('VITE_BASE_URL is not set. Using default:', baseURL)
+if (!import.meta.env.VITE_BASE_URL && !isDevelopment) {
+  console.warn('VITE_BASE_URL is not set. Using default:', backendURL)
 }
 
 const api = axios.create({
-  baseURL: `${baseURL}/`,
+  baseURL: isDevelopment ? '/api' : `${backendURL}/api`,
 })
 
 export const apiClient = axios.create({
-  baseURL: `${baseURL}/`,
+  baseURL: isDevelopment ? '/api' : `${backendURL}/api`,
 })
 
 // TODO: Authentication not implemented - uncomment when ready
