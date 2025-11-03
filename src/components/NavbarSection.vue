@@ -25,15 +25,10 @@
               Home
             </router-link>
           </li>
-          <li>
-            <router-link
-              to="/menu"
-              class="text-text-1-medium hover:text-primary transition-colors"
-              :class="{ 'text-primary': $route.path === '/menu' }"
-            >
-              Menu
-            </router-link>
-          </li>
+          <CategoriesDropdown
+            :is-open="showCategoriesDropdown"
+            @update:is-open="showCategoriesDropdown = $event"
+          />
           <li>
             <router-link
               to="/about"
@@ -111,12 +106,30 @@
       </div>
     </div>
 
-    <!-- Mobile Menu -->
+    <!-- Mobile Menu Sidebar -->
     <div
       v-if="showMobileMenu"
-      class="md:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg"
+      class="md:hidden fixed top-0 right-0 h-full w-1/2 max-w-xs bg-pure-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out"
+      :class="{ 'translate-x-0': showMobileMenu, 'translate-x-full': !showMobileMenu }"
     >
-      <div class="px-4 py-2 space-y-2">
+      <!-- Close Button -->
+      <div class="flex justify-end p-4 border-b border-gray-25">
+        <button
+          @click="closeMobileMenu"
+          class="p-2 text-gray-100 hover:text-primary transition-colors"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="px-4 py-4 space-y-2 overflow-y-auto h-[calc(100vh-4rem)]">
         <router-link
           to="/"
           @click="closeMobileMenu"
@@ -125,14 +138,13 @@
         >
           Home
         </router-link>
-        <router-link
-          to="/menu"
-          @click="closeMobileMenu"
-          class="block py-2 text-text-1-medium text-gray-100 hover:text-primary"
-          :class="{ 'text-primary': $route.path === '/menu' }"
-        >
-          Menu
-        </router-link>
+        <!-- Categories in Mobile Menu -->
+        <CategoriesDropdown
+          :is-mobile="true"
+          :is-open="showMobileCategories"
+          @update:is-open="showMobileCategories = $event"
+          @category-click="closeMobileMenu"
+        />
         <router-link
           to="/about"
           @click="closeMobileMenu"
@@ -149,10 +161,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useTheme } from '../composables/useTheme'
+import CategoriesDropdown from './CategoriesDropdown.vue'
 
 const basePath = import.meta.env.BASE_URL
 const { theme, changeTheme } = useTheme()
 const showMobileMenu = ref(false)
+const showCategoriesDropdown = ref(false)
+const showMobileCategories = ref(false)
 
 const toggleTheme = () => {
   changeTheme(theme.value === 'light' ? 'dark' : 'light')
@@ -160,9 +175,14 @@ const toggleTheme = () => {
 
 const toggleMobileMenu = () => {
   showMobileMenu.value = !showMobileMenu.value
+  // Close categories when mobile menu closes
+  if (!showMobileMenu.value) {
+    showMobileCategories.value = false
+  }
 }
 
 const closeMobileMenu = () => {
   showMobileMenu.value = false
+  showMobileCategories.value = false
 }
 </script>
