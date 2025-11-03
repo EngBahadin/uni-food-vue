@@ -14,4 +14,14 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  server: {
+    proxy: {
+      // Proxy API requests to backend during development to avoid CORS issues
+      '/api': {
+        target: 'http://localhost:8000/',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 })
