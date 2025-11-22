@@ -1,0 +1,4 @@
+Feature 3: Settings View
+Files to be added:
+- SettingView.vue
+Status: Branch created, waiting for implementation
