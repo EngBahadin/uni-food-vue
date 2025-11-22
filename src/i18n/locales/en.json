@@ -1,0 +1,139 @@
+{
+  "nav": {
+    "home": "Home",
+    "categories": "Categories",
+    "about": "About"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Customize your Unifood experience",
+    "language": "Language",
+    "appearance": "Appearance",
+    "account": "Account",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "systemPreference": "System Preference",
+    "manageAccount": "Manage Account",
+    "logout": "Log out",
+    "login": "Login",
+    "signUp": "Sign Up"
+  },
+  "profile": {
+    "title": "Profile",
+    "publicInformation": "Public information",
+    "userProfile": "User profile",
+    "profilePicture": "Profile picture",
+    "loginInformation": "Login information",
+    "emailAddress": "Email address",
+    "changePassword": "Change password",
+    "deleteAccount": "Delete account",
+    "personalInformation": "Personal information",
+    "changeYourUsername": "Change your username",
+    "confirmChanges": "Confirm Changes",
+    "currentEmailAddress": "Current email address",
+    "changeYourEmailAddress": "Change your email address",
+    "newEmail": "New email"
+  },
+  "cart": {
+    "title": "Cart",
+    "loading": "Loading cart...",
+    "empty": "Your cart is empty :(",
+    "quantity": "Quantity",
+    "total": "Total",
+    "confirmOrder": "Confirm Order",
+    "remove": "Remove",
+    "orderSummary": "Order summary",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "areYouSure": "Are you sure you want to confirm this order?"
+  },
+  "favorites": {
+    "title": "Favorites",
+    "empty": "You have not added any food items to your favorites yet."
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search menu items...",
+    "resultsFor": "Results for",
+    "noResults": "No result found :(",
+    "typeSomething": "Type something to search 😊!"
+  },
+  "categories": {
+    "title": "Categories",
+    "loading": "Loading...",
+    "failedToLoad": "Failed to load categories",
+    "noCategories": "No categories available"
+  },
+  "accountMenu": {
+    "profile": "Profile",
+    "orderHistory": "Order History",
+    "setting": "Setting",
+    "logOut": "Log out",
+    "logIn": "Log in"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "pleaseLogin": "Please log in",
+    "pleaseLoginToView": "Please log in to view your cart",
+    "pleaseLoginToFavorites": "Please login to view your favorites",
+    "pleaseLoginToAdd": "Please log in to add to favorites"
+  },
+  "hero": {
+    "title": "Eat Your Food Without Waiting.",
+    "description": "Order your favorite food in class and eat it without waiting to prepare when you arrive",
+    "orderNow": "Order now"
+  },
+  "auth": {
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forget my password",
+    "doNotHaveAccount": "Do not have an account?",
+    "createAccount": "Create an account",
+    "alreadyHaveAccount": "Already have an account?",
+    "incorrectCredentials": "Incorrect credentials provided. Please check your email and password and try again",
+    "confirmPassword": "Confirm Password",
+    "deleteAccount": "Delete Account",
+    "deleteAccountDescription": "Enter your password to delete your account",
+    "deleteMyAccount": "Delete My Account",
+    "currentPassword": "Current password",
+    "accountDeleted": "Account is deleted!"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "emailInvalid": "Please enter a valid email address",
+    "passwordMin": "Password should be at least 8 characters long",
+    "passwordRequired": "Password is required",
+    "usernameMin": "Username should be at least 4 characters long",
+    "usernameRequired": "Username is required",
+    "passwordsMatch": "Passwords must match",
+    "confirmPasswordRequired": "Please confirm your password",
+    "currentPasswordRequired": "Current password is required",
+    "newEmailRequired": "New email is required",
+    "newEmailDifferent": "New email must be different from current email",
+    "usernameDifferent": "Username must be different from current username"
+  },
+  "about": {
+    "title": "About",
+    "description": "Unifood in an online ordering food website that serve students in college and allows them to order food in class and eat it in their college cafeteria without waiting to prepare the food"
+  },
+  "error": {
+    "occurred": "An error occurred",
+    "somethingWentWrong": "Something went wrong"
+  },
+  "orderHistory": {
+    "title": "Order History",
+    "preparing": "Preparing",
+    "prepared": "Prepared",
+    "noOrdersYet": "No Orders Yet!",
+    "foodId": "Food ID",
+    "total": "total",
+    "reOrder": "Re-Order",
+    "goodVibes": "🎉 Good vibes only! Your food's almost ready. Check back between",
+    "cancelOrder": "Cancel Order",
+    "confirm": "Confirm"
+  }
+}

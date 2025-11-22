@@ -1,0 +1,139 @@
+{
+  "nav": {
+    "home": "سەرەکی",
+    "categories": "پۆلەکان",
+    "about": "دەربارە"
+  },
+  "settings": {
+    "title": "ڕێکخستنەکان",
+    "description": "ئەزموونی Unifood خۆت بگۆڕە",
+    "language": "زمان",
+    "appearance": "دەرکەوتن",
+    "account": "هەژمار",
+    "lightMode": "دۆخی ڕووناک",
+    "darkMode": "دۆخی تاریک",
+    "systemPreference": "پێشبڕکێی سیستەم",
+    "manageAccount": "بەڕێوەبردنی هەژمار",
+    "logout": "دەرچوون",
+    "login": "چوونەژوورەوە",
+    "signUp": "دروستکردنی هەژمار"
+  },
+  "profile": {
+    "title": "پرۆفایل",
+    "publicInformation": "زانیاری گشتی",
+    "userProfile": "پرۆفایلی بەکارهێنەر",
+    "profilePicture": "وێنەی پرۆفایل",
+    "loginInformation": "زانیاری چوونەژوورەوە",
+    "emailAddress": "ناونیشانی ئیمەیڵ",
+    "changePassword": "گۆڕینی تێپەڕەوشە",
+    "deleteAccount": "سڕینەوەی هەژمار",
+    "personalInformation": "زانیاری کەسی",
+    "changeYourUsername": "گۆڕینی ناوی بەکارهێنەر",
+    "confirmChanges": "پەسەندکردنی گۆڕانکارییەکان",
+    "currentEmailAddress": "ناونیشانی ئیمەیڵی ئێستا",
+    "changeYourEmailAddress": "گۆڕینی ناونیشانی ئیمەیڵ",
+    "newEmail": "ئیمەیڵی نوێ"
+  },
+  "cart": {
+    "title": "سەبەتە",
+    "loading": "بارکردنی سەبەتە...",
+    "empty": "سەبەتەکەت بەتاڵە :(",
+    "quantity": "بڕ",
+    "total": "کۆ",
+    "confirmOrder": "پەسەندکردنی داواکاری",
+    "remove": "لابردن",
+    "orderSummary": "پوختەی داواکاری",
+    "confirm": "پەسەندکردن",
+    "cancel": "هەڵوەشاندن",
+    "areYouSure": "دڵنیایت کە دەتەوێت ئەم داواکارییە پەسەند بکەیت؟"
+  },
+  "favorites": {
+    "title": "دڵخوازەکان",
+    "empty": "هیچ خواردنت زیادت نەکردووە بۆ دڵخوازەکانت."
+  },
+  "search": {
+    "title": "گەڕان",
+    "placeholder": "گەڕان بەدوای خواردن...",
+    "resultsFor": "ئەنجامەکان بۆ",
+    "noResults": "هیچ ئەنجامێک نەدۆزرایەوە :(",
+    "typeSomething": "شتێک بنووسە بۆ گەڕان 😊!"
+  },
+  "categories": {
+    "title": "پۆلەکان",
+    "loading": "بارکردن...",
+    "failedToLoad": "بارکردنی پۆلەکان سەرکەوتوو نەبوو",
+    "noCategories": "هیچ پۆلێک بەردەست نییە"
+  },
+  "accountMenu": {
+    "profile": "پرۆفایل",
+    "orderHistory": "مێژووی داواکاری",
+    "setting": "ڕێکخستنەکان",
+    "logOut": "دەرچوون",
+    "logIn": "چوونەژوورەوە"
+  },
+  "common": {
+    "loading": "بارکردن...",
+    "error": "هەڵەیەک ڕوویدا",
+    "pleaseLogin": "تکایە چوونەژوورەوە",
+    "pleaseLoginToView": "تکایە چوونەژوورەوە بۆ بینینی سەبەتەکەت",
+    "pleaseLoginToFavorites": "تکایە چوونەژوورەوە بۆ بینینی دڵخوازەکان",
+    "pleaseLoginToAdd": "تکایە چوونەژوورەوە بۆ زیادکردنی دڵخوازەکان"
+  },
+  "hero": {
+    "title": "خواردنەکەت ببەخۆ بەبێ چاوەڕێکردن.",
+    "description": "خواردنی دڵخوازت لە پۆلدا داوا بکە و بەبێ چاوەڕێکردنی ئامادەکردن بخۆ کاتێک گەیشتیت",
+    "orderNow": "ئێستا داوا بکە"
+  },
+  "auth": {
+    "signIn": "چوونەژوورەوە",
+    "signUp": "دروستکردنی هەژمار",
+    "email": "ئیمەیڵ",
+    "password": "تێپەڕەوشە",
+    "forgotPassword": "تێپەڕەوشەم لەبیرچووە",
+    "doNotHaveAccount": "هەژمارت نییە؟",
+    "createAccount": "دروستکردنی هەژمار",
+    "alreadyHaveAccount": "پێشتر هەژمارت هەیە؟",
+    "incorrectCredentials": "زانیارییەکان هەڵەن. تکایە ئیمەیڵ و تێپەڕەوشەکەت چێک بکە و دوبارە هەوڵ بدە",
+    "confirmPassword": "پشتڕاستکردنەوەی تێپەڕەوشە",
+    "deleteAccount": "سڕینەوەی هەژمار",
+    "deleteAccountDescription": "تێپەڕەوشەکەت بنووسە بۆ سڕینەوەی هەژمارەکەت",
+    "deleteMyAccount": "هەژمارەکەم بسڕەوە",
+    "currentPassword": "تێپەڕەوشەی ئێستا",
+    "accountDeleted": "هەژمارەکە سڕایەوە!"
+  },
+  "validation": {
+    "required": "ئەم خانەیە پێویستە",
+    "email": "تکایە ناونیشانی ئیمەیڵێکی دروست بنووسە",
+    "emailInvalid": "تکایە ناونیشانی ئیمەیڵێکی دروست بنووسە",
+    "passwordMin": "تێپەڕەوشە دەبێت لانیکەم 8 پیت بێت",
+    "passwordRequired": "تێپەڕەوشە پێویستە",
+    "usernameMin": "ناوی بەکارهێنەر دەبێت لانیکەم 4 پیت بێت",
+    "usernameRequired": "ناوی بەکارهێنەر پێویستە",
+    "passwordsMatch": "تێپەڕەوشەکان دەبێت یەکسان بن",
+    "confirmPasswordRequired": "تکایە تێپەڕەوشەکەت پشتڕاست بکەوە",
+    "currentPasswordRequired": "تێپەڕەوشەی ئێستا پێویستە",
+    "newEmailRequired": "ئیمەیڵی نوێ پێویستە",
+    "newEmailDifferent": "ئیمەیڵی نوێ دەبێت جیاواز بێت لە ئیمەیڵی ئێستا",
+    "usernameDifferent": "ناوی بەکارهێنەر دەبێت جیاواز بێت لە ناوی بەکارهێنەری ئێستا"
+  },
+  "about": {
+    "title": "دەربارە",
+    "description": "Unifood وێبسایتێکی داواکردنی خواردنە لەسەر ئینتەرنێت کە خزمەتی قوتابیان دەکات لە کۆلێژدا و ڕێگەیان پێدەدات خواردن لە پۆلدا داوا بکەن و لە کافتریای کۆلێژەکەیاندا بخۆن بەبێ چاوەڕێکردنی ئامادەکردنی خواردن"
+  },
+  "error": {
+    "occurred": "هەڵەیەک ڕوویدا",
+    "somethingWentWrong": "شتێک هەڵەی کرد"
+  },
+  "orderHistory": {
+    "title": "مێژووی داواکاری",
+    "preparing": "لە جێبەجێکردندا",
+    "prepared": "ئامادە",
+    "noOrdersYet": "هیچ داواکارییەک نییە!",
+    "foodId": "ناسنامەی خواردن",
+    "total": "کۆی گشتی",
+    "reOrder": "دووبارە داواکردن",
+    "goodVibes": "🎉 تەنها هەستێکی باش! خواردنەکەت نزیکەی ئامادەیە. لە نێوان دوبارە چێک بکە",
+    "cancelOrder": "هەڵوەشاندنەوەی داواکاری",
+    "confirm": "دڵنیاکردنەوە"
+  }
+}
