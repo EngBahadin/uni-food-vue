@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-white lg:px-16 md:px-10 sm:px-8 px-4">
+  <div class="min-h-screen bg-pure-white lg:px-16 md:px-10 sm:px-8 px-4">
     <!-- Loading State -->
     <div v-if="isLoading" class="flex items-center justify-center min-h-screen">
       <p class="text-text-1-medium text-gray-100">Loading product...</p>
@@ -221,8 +221,12 @@
 import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
+import { toast } from 'vue-sonner'
 import { useFoodItemQuery } from '../../services/query'
 import { extras, drinks } from '../../lib/utils'
+import { useAddToCartMutation } from '../../services/actions'
+import { useCartStore } from '../stores/cart'
+import { getToken } from '../utils/auth'
 
 const route = useRoute()
 const router = useRouter()
@@ -316,17 +320,43 @@ const decreaseQuantity = () => {
     quantity.value--
   }
 }
-// Add to cart (placeholder)
+
+// Cart store and mutation
+const cartStore = useCartStore()
+const { mutate: addToCartMutation, isPending: isAddingToCart } = useAddToCartMutation()
+
 const addToCart = () => {
-  console.log('Add to cart:', {
-    foodItem: foodItem.value,
-    quantity: quantity.value,
-    sizeId: selectedSizeId.value,
-    sizePrice: selectedSizePrice.value,
-    extras: selectedExtras.value,
-    drinks: selectedDrinks.value,
-    totalPrice: totalPrice.value,
-  })
-  // TODO: Implement actual cart functionality
+  if (!foodItem.value) return
+
+  const token = getToken()
+  if (!token) {
+    toast.info('Please log in to add to cart')
+    router.push('/auth/signin')
+    return
+  }
+
+  // Navigate back first, then add to cart
+  router.back()
+
+  // Only include size_price if the food item has sizes (no fixed price)
+  // size_price should be the size ID, not the price
+  const sizePriceId = !foodItem.value.price && selectedSizeId.value ? selectedSizeId.value : undefined
+
+  addToCartMutation(
+    {
+      foodItemId: foodItem.value.id,
+      sizePrice: sizePriceId,
+      qty: quantity.value,
+    },
+    {
+      onSuccess: () => {
+        // Cart quantity is updated optimistically via onMutate
+        toast.success('Item added to cart successfully')
+      },
+      onError: (error: any) => {
+        toast.error('Error adding to cart. Please try again.')
+      },
+    }
+  )
 }
 </script>
