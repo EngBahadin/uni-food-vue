@@ -3,15 +3,6 @@
     class="relative flex flex-col rounded-2xl overflow-hidden bg-pure-white md:h-[275px] sm:h-64 h-[200px] hover:scale-105 transition-all duration-300 shadow-lg hover:drop-shadow-xl"
     :class="layout === 'grid' ? '' : 'md:w-64 sm:w-[200px] w-48'"
   >
-    <!-- Heart Icon - Top Right -->
-    <button
-      @click.stop="toggleFavorite"
-      class="absolute top-3 right-3 z-10 p-1 transition-all duration-200"
-      :class="item.is_favorite ? 'text-red-500' : 'text-gray-300'"
-    >
-      <Icon :icon="item.is_favorite ? 'mdi:heart' : 'mdi:heart-outline'" class="w-6 h-6" />
-    </button>
-
     <!-- Image Section -->
     <div
       class="grid w-full h-1/2 place-items-center bg-primary cursor-pointer p-2"
@@ -27,51 +18,59 @@
     </div>
 
     <!-- Content Section -->
-    <div class="flex flex-col p-2 sm:gap-y-2 gap-y-1">
-      <h3 class="text-text-1-medium text-black cursor-pointer" @click="handleProductDetail">
-        {{ item.name }}
-      </h3>
-
-      <p class="text-text-1-medium text-primary font-medium">
-        <template v-if="item.price !== null">${{ item.price }}</template>
-        <template v-else-if="item.size_price && item.size_price.length > 0">
-          ${{ item.size_price[0]?.price }}+
-        </template>
-        <template v-else>Price varies</template>
-      </p>
-
-      <p class="text-text-3-regular text-gray-100 flex items-center">
-        <svg class="sm:w-4 sm:h-4 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-          ></path>
-        </svg>
-        <span class="ml-2"> {{ item.prep_time }} minutes </span>
-      </p>
-
-      <p class="text-text-3-regular text-gray-100 flex items-center">
-        <svg
-          class="sm:w-4 sm:h-4 w-3 h-3 mr-2 text-warning"
-          fill="currentColor"
-          viewBox="0 0 20 20"
+    <div class="flex justify-between p-2 sm:gap-x-3 gap-x-2">
+      <div class="flex flex-col sm:gap-y-2 gap-y-1 sm:w-48 w-40">
+        <h3
+          class="lg:text-text-1-medium select-none md:text-text-2-medium sm:text-text-3-medium text-caption-1-medium text-black cursor-pointer"
+          @click="handleProductDetail"
         >
-          <path
-            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-          ></path>
-        </svg>
-        {{ item.review.avg_rating }} ({{ item.review.count }} reviews)
-      </p>
+          {{ item.name }}
+        </h3>
+
+        <p class="lg:text-text-1-medium select-none md:text-text-2-medium text-text-3-medium text-primary">
+          <template v-if="item.price !== null">{{ item.price }} IQD</template>
+          <template v-else-if="item.size_price && item.size_price.length > 0">
+            {{ item.size_price[0]?.price }} IQD
+          </template>
+          <template v-else>Price varies</template>
+        </p>
+
+        <p class="text-gray-100 flex items-center">
+          <svg class="sm:w-4 sm:h-4 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+          <span class="ml-2 select-none md:text-text-3-regular sm:text-caption-1-regular text-caption-2-regular">
+            {{ item.prep_time }} minutes
+          </span>
+        </p>
+
+        <p class="md:text-text-3-regular sm:text-caption-1-regular text-caption-2-regular select-none text-gray-100 flex items-center">
+          <svg
+            class="sm:w-4 sm:h-4 w-3 h-3 mr-2 text-warning"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+            ></path>
+          </svg>
+          {{ item.review.avg_rating }} ({{ item.review.count }} reviews)
+        </p>
+      </div>
+      <Favorites :food-item-id="item.id" :is-favorite="item.is_favorite || false" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { Icon } from '@iconify/vue'
 import type { FoodItem as FoodItemType } from '../../types/index'
+import Favorites from './Favorites.vue'
 
 interface Props {
   item: FoodItemType
@@ -83,10 +82,5 @@ const router = useRouter()
 
 const handleProductDetail = () => {
   router.push(`/product/${props.item.id}`)
-}
-
-const toggleFavorite = () => {
-  // Toggle favorite status
-  console.log('Toggle favorite for:', props.item.id)
 }
 </script>
