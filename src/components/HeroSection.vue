@@ -4,19 +4,17 @@
   >
     <!-- Content Section -->
     <div class="flex flex-col md:items-start items-center gap-8 md:text-left text-center">
-      <h1 class="text-primary text-sub-heading-1-regular">Eat Your Food Without Waiting.</h1>
+      <h1 class="text-primary text-sub-heading-1-regular">{{ $t('hero.title') }}</h1>
 
       <p class="text-black text-body-3-regular max-w-md">
-        Order your favorite food in class and eat it without
-        <br class="hidden sm:block" />
-        waiting to prepare when you arrive
+        {{ $t('hero.description') }}
       </p>
 
       <button
         class="bg-primary text-white px-8 py-3 rounded-lg text-text-1-semiBold hover:scale-105 transition-transform duration-200 shadow-lg"
         @click="scrollDown"
       >
-        Order now
+        {{ $t('hero.orderNow') }}
       </button>
     </div>
 

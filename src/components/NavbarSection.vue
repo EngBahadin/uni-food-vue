@@ -2,7 +2,7 @@
   <nav
     class="sticky bg-pure-white z-50 top-0 w-full h-16 md:h-20 flex items-center border-b-[1px] border-gray-50"
   >
-    <div class="flex justify-between w-full px-4 md:px-10">
+    <div class="flex justify-between w-full gap-y-4 md:px-10 px-4">
       <!-- Logo and Navigation -->
       <div class="hidden md:flex items-center gap-8">
         <router-link to="/" class="flex items-center">
@@ -22,7 +22,7 @@
               class="text-text-1-medium hover:text-primary transition-colors"
               :class="{ 'text-primary': $route.path === '/' }"
             >
-              Home
+              {{ $t('nav.home') }}
             </router-link>
           </li>
           <CategoriesDropdown
@@ -35,139 +35,176 @@
               class="text-text-1-medium hover:text-primary transition-colors"
               :class="{ 'text-primary': $route.path === '/about' }"
             >
-              About
+              {{ $t('nav.about') }}
             </router-link>
           </li>
         </ul>
       </div>
 
-      <!-- Mobile Logo -->
-      <div class="md:hidden">
-        <router-link to="/" class="flex items-center">
-          <img
-            :src="
-              theme === 'light' ? `${basePath}unifood-logo.png` : `${basePath}unifood-logo-dm.png`
-            "
-            alt="UniFood logo"
-            class="w-8 h-8"
-          />
-        </router-link>
-      </div>
+      <!-- Mobile Sidebar (Left Side) -->
+      <nav class="md:hidden bg-pure-white z-20 relative">
+        <menu class="flex items-center ml-4 sm:ml-8 gap-x-4 sm:gap-x-8">
+          <button
+            @click="toggleMobileMenu"
+            class="text-primary hover:scale-105 active:scale-95 transition-all"
+          >
+            <svg
+              v-if="!showMobileMenu"
+              class="sm:w-7 sm:h-7 w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+            <svg
+              v-else
+              class="sm:w-7 sm:h-7 w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <router-link to="/" class="flex items-center">
+            <img
+              :src="
+                theme === 'light' ? `${basePath}unifood-logo.png` : `${basePath}unifood-logo-dm.png`
+              "
+              alt="UniFood logo"
+              class="object-contain cursor-pointer sm:w-12 sm:h-12 w-8 h-8"
+            />
+          </router-link>
+        </menu>
 
-      <!-- Right Side Actions -->
-      <div class="flex items-center gap-4">
+        <!-- Mobile Menu Dropdown -->
+        <article
+          :class="[
+            showMobileMenu ? 'sm:p-6 p-4' : 'h-0 p-0',
+            'overflow-hidden absolute rounded-br-xl duration-300 ease-out bg-pure-white drop-shadow-md z-30',
+          ]"
+        >
+          <div
+            class="flex flex-col sm:gap-y-4 gap-y-2 text-gray-75 sm:text-text-1-regular text-text-3-regular"
+          >
+            <router-link
+              @click="closeMobileMenu"
+              to="/"
+              :class="[
+                'flex items-center gap-3 hover:text-primary hover:scale-105 active:scale-95 transition-all',
+                $route.path === '/'
+                  ? 'border-b-[3px] rounded-b-sm border-primary text-primary'
+                  : '',
+              ]"
+            >
+              <Icon icon="mdi:home" class="sm:w-6 sm:h-6 w-5 h-5" />
+              <span>{{ $t('nav.home') }}</span>
+            </router-link>
+
+            <router-link
+              @click="closeMobileMenu"
+              to="/about"
+              :class="[
+                'flex items-center gap-3 hover:text-primary hover:scale-105 active:scale-95 transition-all',
+                $route.path === '/about'
+                  ? 'border-b-[3px] rounded-b-sm border-primary text-primary'
+                  : '',
+              ]"
+            >
+              <Icon icon="mdi:information" class="sm:w-6 sm:h-6 w-5 h-5" />
+              <span>{{ $t('nav.about') }}</span>
+            </router-link>
+
+            <div class="flex flex-row items-center gap-x-3 group">
+              <Icon
+                icon="mdi:view-grid"
+                :class="[
+                  'sm:w-6 sm:h-6 w-5 h-5 group-hover:text-primary group-hover:scale-105 transition-all group-active:scale-95',
+                  $route.path.startsWith('/categories') ? 'text-primary' : '',
+                ]"
+              />
+              <CategoriesDropdown
+                :is-mobile="true"
+                :is-open="showMobileCategories"
+                @update:is-open="showMobileCategories = $event"
+                @category-click="closeMobileMenu"
+              />
+            </div>
+
+            <FavoriteIcon type="sidebar" :set-open-bar="closeMobileMenu" />
+          </div>
+        </article>
+      </nav>
+
+      <!-- Search Bar and Right Actions Container -->
+      <div class="flex items-center gap-4 pr-4 md:pr-0">
+        <!-- Search Bar -->
+        <SearchBar
+          :search-focused="searchFocused"
+          @update:search-focused="searchFocused = $event"
+        />
+
+        <!-- Cart Icon -->
+        <CartIcon :search-focused="searchFocused" />
+
+        <!-- Favorite Icon -->
+        <FavoriteIcon type="header" />
+
         <!-- Theme Toggle Icon -->
         <button
           @click="toggleTheme"
-          class="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          class="cursor-pointer transition-all"
           :title="theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'"
         >
-          <svg
-            v-if="theme === 'light'"
-            class="w-5 h-5 text-gray-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-            />
-          </svg>
-          <svg
-            v-else
-            class="w-5 h-5 text-gray-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-            />
-          </svg>
+          <Icon
+            :icon="
+              theme === 'light'
+                ? 'material-symbols:dark-mode-outline'
+                : 'material-symbols:light-mode-outline'
+            "
+            :class="[
+              'md:w-8 md:h-8 sm:w-7 sm:h-7 w-6 h-6 transition-all',
+              'text-gray-100 hover:text-primary hover:scale-105 active:scale-95',
+            ]"
+          />
         </button>
-
-        <!-- Mobile Menu Button -->
-        <button @click="toggleMobileMenu" class="md:hidden p-2 text-gray-600 hover:text-primary">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-          </svg>
-        </button>
+        <!-- Account Menu -->
+        <AccountMenu />
       </div>
     </div>
 
-    <!-- Mobile Menu Sidebar -->
-    <div
-      v-if="showMobileMenu"
-      class="md:hidden fixed top-0 right-0 h-full w-1/2 max-w-xs bg-pure-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out"
-      :class="{ 'translate-x-0': showMobileMenu, 'translate-x-full': !showMobileMenu }"
-    >
-      <!-- Close Button -->
-      <div class="flex justify-end p-4 border-b border-gray-25">
-        <button
-          @click="closeMobileMenu"
-          class="p-2 text-gray-100 hover:text-primary transition-colors"
-        >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-      </div>
-
-      <div class="px-4 py-4 space-y-2 overflow-y-auto h-[calc(100vh-4rem)]">
-        <router-link
-          to="/"
-          @click="closeMobileMenu"
-          class="block py-2 text-text-1-medium text-gray-100 hover:text-primary"
-          :class="{ 'text-primary': $route.path === '/' }"
-        >
-          Home
-        </router-link>
-        <!-- Categories in Mobile Menu -->
-        <CategoriesDropdown
-          :is-mobile="true"
-          :is-open="showMobileCategories"
-          @update:is-open="showMobileCategories = $event"
-          @category-click="closeMobileMenu"
-        />
-        <router-link
-          to="/about"
-          @click="closeMobileMenu"
-          class="block py-2 text-text-1-medium text-gray-100 hover:text-primary"
-          :class="{ 'text-primary': $route.path === '/about' }"
-        >
-          About
-        </router-link>
-      </div>
-    </div>
+    <!-- Overlay for Mobile Menu -->
+    <div v-if="showMobileMenu" class="md:hidden fixed inset-0 z-10" @click="closeMobileMenu"></div>
   </nav>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import { useTheme } from '../composables/useTheme'
 import CategoriesDropdown from './CategoriesDropdown.vue'
+import AccountMenu from './AccountMenu.vue'
+import SearchBar from './SearchBar.vue'
+import CartIcon from './CartIcon.vue'
+import FavoriteIcon from './FavoriteIcon.vue'
 
 const basePath = import.meta.env.BASE_URL
 const { theme, changeTheme } = useTheme()
 const showMobileMenu = ref(false)
 const showCategoriesDropdown = ref(false)
 const showMobileCategories = ref(false)
+const searchFocused = ref(false)
 
 const toggleTheme = () => {
   changeTheme(theme.value === 'light' ? 'dark' : 'light')
