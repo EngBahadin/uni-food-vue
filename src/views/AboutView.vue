@@ -1,13 +1,11 @@
 <template>
-  <div class="p-10 flex flex-col bg-white min-h-screen gap-y-14">
+  <div class="p-10 flex flex-col bg-pure-white min-h-screen gap-y-14">
     <div>
       <h1 class="text-sub-heading-1-semiBold text-primary border-l-8 border-primary p-2 mb-4">
-        About
+        {{ $t('about.title') }}
       </h1>
       <p class="text-body-3-regular text-black md:max-w-[70%]">
-        Unifood in an online ordering food website that serve students in college and allows them to
-        order food in class and eat it in their college cafeteria without waiting to prepare the
-        food
+        {{ $t('about.description') }}
       </p>
     </div>
     <img

@@ -1,0 +1,139 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "categories": "الفئات",
+    "about": "حول"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "description": "خصص تجربة Unifood الخاصة بك",
+    "language": "اللغة",
+    "appearance": "المظهر",
+    "account": "الحساب",
+    "lightMode": "الوضع الفاتح",
+    "darkMode": "الوضع الداكن",
+    "systemPreference": "تفضيل النظام",
+    "manageAccount": "إدارة الحساب",
+    "logout": "تسجيل الخروج",
+    "login": "تسجيل الدخول",
+    "signUp": "إنشاء حساب"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "publicInformation": "المعلومات العامة",
+    "userProfile": "ملف المستخدم",
+    "profilePicture": "صورة الملف الشخصي",
+    "loginInformation": "معلومات تسجيل الدخول",
+    "emailAddress": "عنوان البريد الإلكتروني",
+    "changePassword": "تغيير كلمة المرور",
+    "deleteAccount": "حذف الحساب",
+    "personalInformation": "المعلومات الشخصية",
+    "changeYourUsername": "تغيير اسم المستخدم",
+    "confirmChanges": "تأكيد التغييرات",
+    "currentEmailAddress": "عنوان البريد الإلكتروني الحالي",
+    "changeYourEmailAddress": "تغيير عنوان البريد الإلكتروني",
+    "newEmail": "البريد الإلكتروني الجديد"
+  },
+  "cart": {
+    "title": "السلة",
+    "loading": "جاري تحميل السلة...",
+    "empty": "سلتك فارغة :(",
+    "quantity": "الكمية",
+    "total": "المجموع",
+    "confirmOrder": "تأكيد الطلب",
+    "remove": "إزالة",
+    "orderSummary": "ملخص الطلب",
+    "confirm": "تأكيد",
+    "cancel": "إلغاء",
+    "areYouSure": "هل أنت متأكد أنك تريد تأكيد هذا الطلب؟"
+  },
+  "favorites": {
+    "title": "المفضلة",
+    "empty": "لم تقم بإضافة أي عناصر طعام إلى المفضلة بعد."
+  },
+  "search": {
+    "title": "بحث",
+    "placeholder": "ابحث عن عناصر القائمة...",
+    "resultsFor": "نتائج البحث عن",
+    "noResults": "لم يتم العثور على نتائج :(",
+    "typeSomething": "اكتب شيئًا للبحث 😊!"
+  },
+  "categories": {
+    "title": "الفئات",
+    "loading": "جاري التحميل...",
+    "failedToLoad": "فشل تحميل الفئات",
+    "noCategories": "لا توجد فئات متاحة"
+  },
+  "accountMenu": {
+    "profile": "الملف الشخصي",
+    "orderHistory": "سجل الطلبات",
+    "setting": "الإعدادات",
+    "logOut": "تسجيل الخروج",
+    "logIn": "تسجيل الدخول"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "pleaseLogin": "يرجى تسجيل الدخول",
+    "pleaseLoginToView": "يرجى تسجيل الدخول لعرض سلتك",
+    "pleaseLoginToFavorites": "يرجى تسجيل الدخول لعرض المفضلة",
+    "pleaseLoginToAdd": "يرجى تسجيل الدخول لإضافة إلى المفضلة"
+  },
+  "hero": {
+    "title": "تناول طعامك دون انتظار.",
+    "description": "اطلب طعامك المفضل في الفصل وتناوله دون انتظار التحضير عند وصولك",
+    "orderNow": "اطلب الآن"
+  },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور",
+    "doNotHaveAccount": "ليس لديك حساب؟",
+    "createAccount": "إنشاء حساب",
+    "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
+    "incorrectCredentials": "بيانات الاعتماد غير صحيحة. يرجى التحقق من بريدك الإلكتروني وكلمة المرور والمحاولة مرة أخرى",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "deleteAccount": "حذف الحساب",
+    "deleteAccountDescription": "أدخل كلمة المرور لحذف حسابك",
+    "deleteMyAccount": "حذف حسابي",
+    "currentPassword": "كلمة المرور الحالية",
+    "accountDeleted": "تم حذف الحساب!"
+  },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "email": "يرجى إدخال عنوان بريد إلكتروني صالح",
+    "emailInvalid": "يرجى إدخال عنوان بريد إلكتروني صالح",
+    "passwordMin": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "usernameMin": "يجب أن يكون اسم المستخدم 4 أحرف على الأقل",
+    "usernameRequired": "اسم المستخدم مطلوب",
+    "passwordsMatch": "يجب أن تتطابق كلمات المرور",
+    "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
+    "currentPasswordRequired": "كلمة المرور الحالية مطلوبة",
+    "newEmailRequired": "البريد الإلكتروني الجديد مطلوب",
+    "newEmailDifferent": "يجب أن يكون البريد الإلكتروني الجديد مختلفًا عن البريد الإلكتروني الحالي",
+    "usernameDifferent": "يجب أن يكون اسم المستخدم مختلفًا عن اسم المستخدم الحالي"
+  },
+  "about": {
+    "title": "حول",
+    "description": "Unifood هو موقع طلب طعام عبر الإنترنت يخدم الطلاب في الكلية ويسمح لهم بطلب الطعام في الفصل وتناوله في كافتيريا الكلية دون انتظار تحضير الطعام"
+  },
+  "error": {
+    "occurred": "حدث خطأ",
+    "somethingWentWrong": "حدث خطأ ما"
+  },
+  "orderHistory": {
+    "title": "سجل الطلبات",
+    "preparing": "قيد التحضير",
+    "prepared": "جاهز",
+    "noOrdersYet": "لا توجد طلبات بعد!",
+    "foodId": "معرف الطعام",
+    "total": "المجموع",
+    "reOrder": "إعادة الطلب",
+    "goodVibes": "🎉 أجواء إيجابية فقط! طعامك جاهز تقريباً. تحقق مرة أخرى بين",
+    "cancelOrder": "إلغاء الطلب",
+    "confirm": "تأكيد"
+  }
+}

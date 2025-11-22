@@ -6,7 +6,7 @@
       class="text-text-1-medium hover:text-primary transition-colors flex items-center gap-1"
       :class="{ 'text-primary': isOpen }"
     >
-      Categories
+      {{ $t('categories.title') }}
       <svg
         class="w-4 h-4 transition-transform"
         :class="{ 'rotate-180': isOpen }"
@@ -22,7 +22,7 @@
       v-if="isOpen"
       class="absolute top-full left-0 mt-2 w-48 bg-pure-white border border-gray-25 rounded-lg shadow-lg py-2 z-50"
     >
-      <div v-if="isLoading" class="px-4 py-2 text-text-2-regular text-gray-100">Loading...</div>
+      <div v-if="isLoading" class="px-4 py-2 text-text-2-regular text-gray-100">{{ $t('categories.loading') }}</div>
       <router-link
         v-else-if="categories && categories.length > 0"
         v-for="category in categories"
@@ -34,9 +34,9 @@
         {{ category.name }}
       </router-link>
       <div v-else-if="error" class="px-4 py-2 text-text-2-regular text-error">
-        Failed to load categories
+        {{ $t('categories.failedToLoad') }}
       </div>
-      <div v-else class="px-4 py-2 text-text-2-regular text-gray-50">No categories available</div>
+      <div v-else class="px-4 py-2 text-text-2-regular text-gray-50">{{ $t('categories.noCategories') }}</div>
     </div>
   </li>
 
@@ -44,9 +44,9 @@
   <div v-else>
     <button
       @click="toggleDropdown"
-      class="w-full flex items-center justify-between py-2 text-text-1-medium text-gray-100 hover:text-primary"
+      class="w-full flex items-center justify-between py-2 sm:text-text-1-regular text-text-3-regular text-gray-100 hover:text-primary"
     >
-      <span>Categories</span>
+      <span>{{ $t('categories.title') }}</span>
       <svg
         class="w-4 h-4 transition-transform"
         :class="{ 'rotate-180': isOpen }"
@@ -58,7 +58,7 @@
       </svg>
     </button>
     <div v-if="isOpen" class="pl-4 mt-2 space-y-1 border-l-2 border-gray-25">
-      <div v-if="isLoading" class="py-2 text-text-2-regular text-gray-100">Loading...</div>
+      <div v-if="isLoading" class="py-2 text-text-2-regular text-gray-100">{{ $t('categories.loading') }}</div>
       <router-link
         v-else-if="categories && categories.length > 0"
         v-for="category in categories"
@@ -70,9 +70,9 @@
         {{ category.name }}
       </router-link>
       <div v-else-if="error" class="py-2 text-text-2-regular text-error">
-        Failed to load categories
+        {{ $t('categories.failedToLoad') }}
       </div>
-      <div v-else class="py-2 text-text-2-regular text-gray-50">No categories available</div>
+      <div v-else class="py-2 text-text-2-regular text-gray-50">{{ $t('categories.noCategories') }}</div>
     </div>
   </div>
 </template>
