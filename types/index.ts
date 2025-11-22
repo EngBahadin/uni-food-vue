@@ -2,10 +2,6 @@
 // Note: Icon handling should use Vue icon libraries like @iconify/vue
 
 export type IconType = 'email' | 'password' | 'user'
-export type categoryItemsProps = {
-  categoryName: string
-  categoryId: string
-}
 export type InputProps = {
   value?: string
   onChange?: (e: Event) => void
@@ -41,94 +37,15 @@ export type authHeaderProps = {
   title: string
   description: string
 }
-export type errorProp = {
-  status: number
-  statusText: string
-  message: string
-  name: string
-  cause:
-    | string
-    | {
-        email?: string[]
-        password?: string[]
-        username?: string[]
-        re_password?: string[]
-      }
-}
-export type paramsProps = {
-  params: { uid: string; token: string } // Vue Router params are synchronous
-}
 export type validateProps = {
   uid: string
   token: string
 }
-export type FavoriteIconProps = {
-  pathName: string
-  type: string
-  activeClasses?: string
-  setOpenBar?: (open: boolean) => void
-}
 
-// Cart/Food item with nested structure (different from display FoodItem)
-export interface CartFoodItem {
-  id: string
-  food_item: {
-    name: string
-    image: string
-    price?: number // Optional if it could be null
-    size_price: Array<{ price: number }>
-    id: string
-  }
-  qty: number
-  price: number
-  waiting_time?: number
-  selected_size_price?: {
-    size: string
-    price: number
-    food_item: string
-    id: number
-  }
-}
-
-export type FoodItemKeys = {
-  // its used in the home page and the category items page
-  id: number
-  image: string | null
-  name: string
-  price: number | null
-  size_price: { price: number }[] // Assuming size_price is an array of objects with a `price` field
-  prep_time: number
-  review: {
-    avg_rating: number
-    count: number
-  }
-  is_favorite: boolean
-}
-export type ModalProps = {
-  onClose: () => void
-  onNavigate: () => void
-  notVerified?: boolean
-}
 export type ButtonProps = {
   children?: unknown // Vue uses slots instead of children prop
   isPending: boolean
   position?: string
-}
-export interface OrderHistoryCartProps {
-  cartType: string
-  preparationTime?: string
-  preparationStatus?: string
-}
-export type categoryId = {
-  params: { category: string } // Vue Router params are synchronous
-}
-
-export type productParams = {
-  params: { product_id: string } // Vue Router params are synchronous
-}
-export type CategoryProps = {
-  id: string
-  name: string
 }
 
 // Recently added types/index.ts
@@ -170,4 +87,29 @@ export interface Food {
   id: number
   name: string
   image: string
+}
+
+// Order History Types
+export type OrderedFoods = OrderedFood[]
+
+export interface OrderedFood {
+  id: number
+  status: string
+  created_at: string // ISO 8601 date string
+  total_price: number
+  estimated_time: string
+  order_items: OrderItem[]
+}
+
+export interface OrderItem {
+  id: number
+  qty: number
+  price: number
+  food_item: {
+    id: number
+    name: string
+    image: string
+    price?: number
+    size_price: Array<{ price: number }>
+  }
 }
