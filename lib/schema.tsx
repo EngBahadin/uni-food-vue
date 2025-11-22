@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { FieldOptions } from '../types'
+import type { FieldOptions } from '../types'
 
 export function createSchema(options: FieldOptions) {
   const schema: Record<string, z.ZodType<unknown>> = {}
