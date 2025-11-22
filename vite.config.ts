@@ -12,12 +12,27 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '~types': fileURLToPath(new URL('./types', import.meta.url)),
     },
   },
   server: {
+    port: 3000,
     proxy: {
       // Proxy API requests to backend during development to avoid CORS issues
       '/api': {
+        target: 'http://localhost:8000/',
+        changeOrigin: true,
+        secure: false,
+      },
+      // Proxy all auth API requests to backend (only API endpoints, not frontend routes)
+      '^/auth/(users|jwt)': {
+        target: 'http://localhost:8000/',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path, // Keep the path as is
+      },
+      // Proxy media files from backend (images, etc.)
+      '/media': {
         target: 'http://localhost:8000/',
         changeOrigin: true,
         secure: false,
