@@ -1,0 +1,8 @@
+Feature 4: Profile Management
+Files to be added:
+- ProfileView.vue
+- EditProfile.vue
+- ProfileDetail.vue
+- useUserDetail.ts
+
+Status: Branch created, waiting for implementation
