@@ -99,7 +99,6 @@ import { Icon } from '@iconify/vue'
 import { toast } from 'vue-sonner'
 import { usePreparingOrdersQuery, usePreparedOrdersQuery } from '../../services/query'
 import OrderedFoodCart from '../components/OrderedFoodCart.vue'
-import { getToken } from '../utils/auth'
 
 const route = useRoute()
 const router = useRouter()
