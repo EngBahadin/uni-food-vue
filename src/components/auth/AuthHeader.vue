@@ -27,7 +27,7 @@ import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import type { authHeaderProps } from '../../../types'
 
-const props = defineProps<authHeaderProps>()
+defineProps<authHeaderProps>()
 
 const router = useRouter()
 

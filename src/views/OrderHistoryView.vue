@@ -43,19 +43,20 @@
         v-else
         class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6"
       >
-        <OrderedFoodCart
-          v-for="item in preparingData"
-          :key="item.id"
-          :item="item"
-        />
-        <div
-          v-if="isPreparingPending"
-          v-for="i in 3"
-          :key="`skeleton-${i}`"
-          class="rounded-xl shadow-lg border-[1px] border-gray-50 animate-pulse"
-        >
-          <div class="h-64 bg-gray-100"></div>
-        </div>
+        <template v-for="item in preparingData" :key="item.id">
+          <OrderedFoodCart
+            :item="item"
+          />
+        </template>
+        <template v-if="isPreparingPending">
+          <div
+            v-for="i in 3"
+            :key="`skeleton-${i}`"
+            class="rounded-xl shadow-lg border-[1px] border-gray-50 animate-pulse"
+          >
+            <div class="h-64 bg-gray-100"></div>
+          </div>
+        </template>
       </div>
     </div>
 
@@ -72,19 +73,20 @@
         v-else
         class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6"
       >
-        <OrderedFoodCart
-          v-for="item in preparedData"
-          :key="item.id"
-          :item="item"
-        />
-        <div
-          v-if="isPreparedPending"
-          v-for="i in 3"
-          :key="`skeleton-${i}`"
-          class="rounded-xl shadow-lg border-[1px] border-gray-50 animate-pulse"
-        >
-          <div class="h-64 bg-gray-100"></div>
-        </div>
+        <template v-for="item in preparedData" :key="item.id">
+          <OrderedFoodCart
+            :item="item"
+          />
+        </template>
+        <template v-if="isPreparedPending">
+          <div
+            v-for="i in 3"
+            :key="`skeleton-${i}`"
+            class="rounded-xl shadow-lg border-[1px] border-gray-50 animate-pulse"
+          >
+            <div class="h-64 bg-gray-100"></div>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -105,7 +107,6 @@ const router = useRouter()
 const currentStatus = computed(() => route.params.status as string | undefined)
 
 const token = computed(() => getToken())
-const enabled = computed(() => !!token.value)
 
 const {
   data: preparingData,
@@ -122,16 +123,19 @@ const {
 // Handle errors and redirects
 watch([preparingError, preparedError], ([prepErr, prepdErr]) => {
   const error = prepErr || prepdErr
-  if (error && (error as any).response?.status === 401) {
-    const code = (error as any).response?.data?.code
-    if (code === 'user_inactive') {
-      router.push('/auth/signup/check-email')
-    } else if (code === 'token_not_valid') {
-      toast.error((error as any).response?.data?.code || 'An error occurred')
-      router.push('/auth/signin')
+  if (error && typeof error === 'object' && 'response' in error) {
+    const axiosError = error as { response?: { status?: number; data?: { code?: string; message?: string } } }
+    if (axiosError.response?.status === 401) {
+      const code = axiosError.response?.data?.code
+      if (code === 'user_inactive') {
+        router.push('/auth/signup/check-email')
+      } else if (code === 'token_not_valid') {
+        toast.error(axiosError.response?.data?.code || 'An error occurred')
+        router.push('/auth/signin')
+      }
+    } else if (error) {
+      toast.error(axiosError.response?.data?.message || 'An error occurred')
     }
-  } else if (error) {
-    toast.error((error as any).response?.data?.message || 'An error occurred')
   }
 })
 </script>

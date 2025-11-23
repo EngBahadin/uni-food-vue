@@ -44,11 +44,14 @@ export const orderNewAccessToken = async (): Promise<string | null> => {
     Cookies.set('access_token', newAccessToken, { expires: 7 })
 
     return newAccessToken
-  } catch (error: any) {
-    if (error.response?.status === 401) {
-      console.log('remove tokens')
-      removeTokens() // refresh token is expired
-      return null
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number } }
+      if (axiosError.response?.status === 401) {
+        console.log('remove tokens')
+        removeTokens() // refresh token is expired
+        return null
+      }
     }
     return null
   }

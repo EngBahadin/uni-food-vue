@@ -16,7 +16,7 @@
   </span>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="FavoritesIcon">
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
@@ -67,7 +67,7 @@ const handleClick = () => {
         // Invalidate foodItems queries for all categories
         queryClient.invalidateQueries({ queryKey: ['food-items'], exact: false })
       },
-      onError: (error: any) => {
+      onError: () => {
         toast.error('Error removing from favorites. Please try again.')
       },
     })
@@ -82,16 +82,19 @@ const handleClick = () => {
         // Invalidate foodItems queries for all categories
         queryClient.invalidateQueries({ queryKey: ['food-items'], exact: false })
       },
-      onError: (error: any) => {
-        if (error?.response?.status === 401) {
-          if (error.response?.data?.code === 'user_inactive') {
-            // Invalidate queries before redirecting
-            queryClient.invalidateQueries({ queryKey: queryKeys.product, exact: false })
-            router.push('/auth/signup/check-email')
-          } else {
-            // Invalidate queries before redirecting
-            queryClient.invalidateQueries({ queryKey: queryKeys.product, exact: false })
-            router.push('/auth/signin')
+      onError: (error: unknown) => {
+        if (error && typeof error === 'object' && 'response' in error) {
+          const axiosError = error as { response?: { status?: number; data?: { code?: string } } }
+          if (axiosError.response?.status === 401) {
+            if (axiosError.response?.data?.code === 'user_inactive') {
+              // Invalidate queries before redirecting
+              queryClient.invalidateQueries({ queryKey: queryKeys.product, exact: false })
+              router.push('/auth/signup/check-email')
+            } else {
+              // Invalidate queries before redirecting
+              queryClient.invalidateQueries({ queryKey: queryKeys.product, exact: false })
+              router.push('/auth/signin')
+            }
           }
         } else {
           toast.error('Error adding to favorites. Please try again.')

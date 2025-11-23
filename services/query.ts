@@ -74,8 +74,12 @@ export const useUserDetailsQuery = (enabled?: Ref<boolean> | ComputedRef<boolean
       id: '1',
       profile_pic: '/mypic.png',
     },
-    retry: (failureCount, error: any) => {
-      return error?.response?.data?.code !== 'user_inactive'
+    retry: (failureCount, error: unknown) => {
+      if (error && typeof error === 'object' && 'response' in error) {
+        const axiosError = error as { response?: { data?: { code?: string } } }
+        return axiosError.response?.data?.code !== 'user_inactive'
+      }
+      return true
     },
   })
 }

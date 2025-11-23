@@ -47,12 +47,9 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useTheme } from '../../composables/useTheme'
-import { getUserEmail, removeUserEmail } from '../../utils/auth'
+import { getUserEmail } from '../../utils/auth'
 import { resendActivationEndpoint } from '../../../services/api'
-
-const router = useRouter()
 const { appliedTheme } = useTheme()
 const theme = computed(() => appliedTheme.value)
 

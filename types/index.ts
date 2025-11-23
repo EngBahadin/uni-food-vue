@@ -113,3 +113,26 @@ export interface OrderItem {
     size_price: Array<{ price: number }>
   }
 }
+
+// Cart Item Type
+export interface CartItem {
+  id: string
+  qty: number
+  price: number
+  food_item: {
+    id: number
+    name: string
+    image: string
+    price: number | null
+    size_price?: Array<{
+      id: number
+      size: string
+      price: number
+    }>
+  }
+  selected_size_price?: {
+    id: number
+    size: string
+    price: number
+  }
+}

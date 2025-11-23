@@ -33,7 +33,7 @@ import { useTheme } from '../../composables/useTheme'
 import AuthHeader from './AuthHeader.vue'
 import type { DynamicLayoutProps } from '../../../types'
 
-const props = defineProps<DynamicLayoutProps>()
+defineProps<DynamicLayoutProps>()
 
 const { appliedTheme } = useTheme()
 const theme = computed(() => appliedTheme.value)

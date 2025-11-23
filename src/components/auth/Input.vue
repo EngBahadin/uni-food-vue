@@ -12,8 +12,8 @@
       ]"
     >
       <Icon
-        v-if="IconType"
-        :icon="iconMap[IconType]"
+        v-if="iconType"
+        :icon="iconMap[iconType]"
         :class="[
           'absolute sm:text-text-2-medium text-text-3-medium sm:h-6 sm:w-6 ml-3 h-4 w-4',
           errors?.[name] ? 'text-error' : isActive ? 'text-primary' : 'text-gray-75',
@@ -62,10 +62,10 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from 'vue'
+<script setup lang="ts" name="AuthInput">
+import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
-import type { InputProps, IconType } from '../../../types'
+import type { IconType } from '../../../types'
 
 const props = withDefaults(
   defineProps<{
@@ -73,13 +73,13 @@ const props = withDefaults(
     name: string
     placeholder?: string
     type: string
-    IconType?: IconType
+    iconType?: IconType
     errors?: { [key: string]: string | null }
     modelValue?: string
   }>(),
   {
     placeholder: '',
-    IconType: 'email',
+    iconType: 'email',
     errors: () => ({}),
     modelValue: '',
   },

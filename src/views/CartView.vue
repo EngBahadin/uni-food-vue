@@ -81,7 +81,7 @@
             <Icon
               icon="mdi:trash-can-outline"
               class="lg:w-8 lg:h-8 sm:w-6 sm:h-6 w-5 h-5 cursor-pointer active:scale-90 transition-all duration-300"
-              @click="removeFromCart(item.id, item.qty)"
+              @click="removeFromCart(item.id)"
             />
           </div>
         </article>
@@ -132,7 +132,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useQueryClient } from '@tanstack/vue-query'
 import { Icon } from '@iconify/vue'
@@ -147,6 +147,7 @@ import {
 import { queryKeys } from '../../services/keys'
 import { useCartStore } from '../stores/cart'
 import ConfirmOrderModal from '../components/ConfirmOrderModal.vue'
+import type { CartItem } from '../../types'
 
 const router = useRouter()
 const queryClient = useQueryClient()
@@ -163,16 +164,16 @@ const { mutate: confirmOrder } = useConfirmOrderMutation()
 const totalPrice = computed(() => {
   if (!data.value) return 0
   return data.value.reduce(
-    (acc: number, item: any) =>
+    (acc: number, item: CartItem) =>
       acc + (item.food_item.price || item.selected_size_price?.price || 0) * item.qty,
     0,
   )
 })
 
-const updateQuantity = (type: string, item: any) => {
+const updateQuantity = (type: string, item: CartItem) => {
   if (item.qty > 99) return
   if (item.qty === 1 && type === 'decrement') {
-    return removeFromCart(item.id, item.qty)
+    return removeFromCart(item.id)
   }
 
   let newQty = 0
@@ -193,7 +194,7 @@ const updateQuantity = (type: string, item: any) => {
   )
 }
 
-const removeFromCart = (itemId: string, itemQty: number) => {
+const removeFromCart = (itemId: string) => {
   removeFromCartItem(itemId, {
     onSuccess: () => {
       // Cart quantity is updated optimistically via onMutate
@@ -214,7 +215,7 @@ const handleConfirmOrder = () => {
       )
       router.push('/')
     },
-    onError: (error) => {
+    onError: () => {
       toast.error('Failed to confirm order. Please try again.')
     },
   })

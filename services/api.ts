@@ -1,5 +1,5 @@
 import api, { apiAuth, apiClient } from '../lib/axios'
-import type { validateProps } from '../types'
+import type { validateProps, CartItem } from '../types'
 import { newToken, removeTokens, addUserEmail, getToken } from '../src/utils/auth'
 
 /**
@@ -24,11 +24,14 @@ export async function getFoodItemsByCategory(categoryId: number) {
     try {
       const response = await api.get(`api/categories/${categoryId}/food-items/`)
       return response.data
-    } catch (error: any) {
+    } catch (error: unknown) {
       // If user is inactive, fall back to apiClient
-      if (error.response?.data?.code === 'user_inactive') {
-        const response = await apiClient.get(`/api/categories/${categoryId}/food-items/`)
-        return response.data
+      if (error && typeof error === 'object' && 'response' in error) {
+        const axiosError = error as { response?: { data?: { code?: string } } }
+        if (axiosError.response?.data?.code === 'user_inactive') {
+          const response = await apiClient.get(`/api/categories/${categoryId}/food-items/`)
+          return response.data
+        }
       }
       throw error
     }
@@ -45,11 +48,14 @@ export async function getFoodItemById(foodItemId: number) {
     try {
       const response = await api.get(`api/food-items/${foodItemId}/`)
       return response.data
-    } catch (error: any) {
+    } catch (error: unknown) {
       // If user is inactive, fall back to apiClient
-      if (error.response?.data?.code === 'user_inactive') {
-        const response = await apiClient.get(`/api/food-items/${foodItemId}/`)
-        return response.data
+      if (error && typeof error === 'object' && 'response' in error) {
+        const axiosError = error as { response?: { data?: { code?: string } } }
+        if (axiosError.response?.data?.code === 'user_inactive') {
+          const response = await apiClient.get(`/api/food-items/${foodItemId}/`)
+          return response.data
+        }
       }
       throw error
     }
@@ -86,11 +92,14 @@ export async function searchFoodItems(searchTerm: string) {
     try {
       const response = await api.get(`api/food-items/search/${searchTerm}/`)
       return response.data
-    } catch (error: any) {
+    } catch (error: unknown) {
       // If user is inactive, fall back to apiClient
-      if (error.response?.data?.code === 'user_inactive') {
-        const response = await apiClient.get(`/api/food-items/search/${searchTerm}/`)
-        return response.data
+      if (error && typeof error === 'object' && 'response' in error) {
+        const axiosError = error as { response?: { data?: { code?: string } } }
+        if (axiosError.response?.data?.code === 'user_inactive') {
+          const response = await apiClient.get(`/api/food-items/search/${searchTerm}/`)
+          return response.data
+        }
       }
       throw error
     }
@@ -104,7 +113,7 @@ export async function getFavorites() {
   try {
     const response = await api.get('api/favorites/')
     return response.data
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Re-throw to let the query handle it
     throw error
   }
@@ -190,7 +199,7 @@ export async function resendActivationEndpoint(email: string) {
 
 // Cart endpoints
 export async function addToCartEndpoint(foodItemId: number, sizePrice?: number, qty: number = 1) {
-  const data: any = { food_item: foodItemId, qty }
+  const data: { food_item: number; qty: number; size_price?: number } = { food_item: foodItemId, qty }
   if (sizePrice) {
     data.size_price = sizePrice
   }
@@ -208,7 +217,7 @@ export async function removeFromCartEndpoint(itemId: string) {
   return response.data
 }
 
-export async function confirmOrderEndpoint(cartItems: any[]) {
+export async function confirmOrderEndpoint(cartItems: CartItem[]) {
   const response = await api.post('api/order/items/', cartItems)
   return response.data
 }
@@ -233,18 +242,23 @@ export async function loginForm(formData: FormData) {
     const refresh = response.refresh
     newToken({ access, refresh })
     return response
-  } catch (error: any) {
+  } catch (error: unknown) {
     let errorMessage: string
-    if (error.response) {
-      if (error.response.status >= 500 && error.response.status < 600) {
-        errorMessage = 'Failed to fetch'
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number } }
+      if (axiosError.response) {
+        if (axiosError.response.status && axiosError.response.status >= 500 && axiosError.response.status < 600) {
+          errorMessage = 'Failed to fetch'
+        } else {
+          errorMessage = `${axiosError.response.status === 401 ? 'Unauthorized' : ''} `
+        }
       } else {
-        errorMessage = `${error.response.status === 401 ? 'Unauthorized' : ''} `
+        errorMessage = 'Network error: Backend server is unreachable'
       }
-    } else if (error.request) {
+    } else if (error && typeof error === 'object' && 'request' in error) {
       errorMessage = 'Network error: Backend server is unreachable'
     } else {
-      errorMessage = `Error: ${error.message}`
+      errorMessage = `Error: ${error instanceof Error ? error.message : 'Unknown error'}`
     }
     throw new Error(errorMessage)
   }
@@ -259,36 +273,54 @@ export async function signUpForm(formData: FormData) {
     newToken({ access, refresh })
     addUserEmail(email)
     return response
-  } catch (error: any) {
+  } catch (error: unknown) {
     let errorMessage: string
-    if (error.response) {
-      if (error.response.status === 400) {
-        errorMessage = `${error.response.status}: Invalid data`
-      } else if (error.response.status >= 500 && error.response.status < 600) {
-        const errorDetail = error.response.data?.detail || error.response.data?.message || ''
-        if (errorDetail.includes('SMTP') || errorDetail.includes('email')) {
-          if (error.response.data?.jwt_tokens) {
-            const access = error.response.data.jwt_tokens.access
-            const refresh = error.response.data.jwt_tokens.refresh
-            const email = error.response.data.email
-            newToken({ access, refresh })
-            if (email) addUserEmail(email)
-            return error.response.data
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { 
+        response?: { 
+          status?: number
+          data?: {
+            detail?: string
+            message?: string
+            jwt_tokens?: { access: string; refresh: string }
+            email?: string
           }
-          errorMessage = 'Account created but email verification failed. Please try logging in.'
+        }
+      }
+      if (axiosError.response) {
+        if (axiosError.response.status === 400) {
+          errorMessage = `${axiosError.response.status}: Invalid data`
+        } else if (axiosError.response.status && axiosError.response.status >= 500 && axiosError.response.status < 600) {
+          const errorDetail = axiosError.response.data?.detail || axiosError.response.data?.message || ''
+          if (errorDetail.includes('SMTP') || errorDetail.includes('email')) {
+            if (axiosError.response.data?.jwt_tokens) {
+              const access = axiosError.response.data.jwt_tokens.access
+              const refresh = axiosError.response.data.jwt_tokens.refresh
+              const email = axiosError.response.data.email
+              newToken({ access, refresh })
+              if (email) addUserEmail(email)
+              return axiosError.response.data
+            }
+            errorMessage = 'Account created but email verification failed. Please try logging in.'
+          } else {
+            errorMessage = 'Server error. Please try again later.'
+          }
         } else {
-          errorMessage = 'Server error. Please try again later.'
+          errorMessage = `${axiosError.response.status}: Invalid data`
         }
       } else {
-        errorMessage = `${error.response.status}: Invalid data`
+        errorMessage = 'Network error: Backend server is unreachable'
       }
-    } else if (error.request) {
+    } else if (error && typeof error === 'object' && 'request' in error) {
       errorMessage = 'Network error: Backend server is unreachable'
     } else {
-      errorMessage = `Error: ${error.message}`
+      errorMessage = `Error: ${error instanceof Error ? error.message : 'Unknown error'}`
     }
-    const customError = new Error(errorMessage) as Error & { cause?: any }
-    customError.cause = error.response?.data
+    const customError = new Error(errorMessage) as Error & { cause?: unknown }
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { data?: unknown } }
+      customError.cause = axiosError.response?.data
+    }
     throw customError
   }
 }
@@ -296,18 +328,23 @@ export async function signUpForm(formData: FormData) {
 export async function verifyAcc(value: validateProps) {
   try {
     await verifyAccountEndpoint(value)
-  } catch (error: any) {
+  } catch (error: unknown) {
     let errorMessage: string
-    if (error.response) {
-      if (error.response.status >= 500 && error.response.status < 600) {
-        errorMessage = 'Failed to fetch'
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number } }
+      if (axiosError.response) {
+        if (axiosError.response.status && axiosError.response.status >= 500 && axiosError.response.status < 600) {
+          errorMessage = 'Failed to fetch'
+        } else {
+          errorMessage = `${axiosError.response.status}: Invalid link`
+        }
       } else {
-        errorMessage = `${error.response.status}: Invalid link`
+        errorMessage = 'Network error: Backend server is unreachable'
       }
-    } else if (error.request) {
+    } else if (error && typeof error === 'object' && 'request' in error) {
       errorMessage = 'Network error: Backend server is unreachable'
     } else {
-      errorMessage = `Error: ${error.message}`
+      errorMessage = `Error: ${error instanceof Error ? error.message : 'Unknown error'}`
     }
     throw new Error(errorMessage)
   }
@@ -316,18 +353,28 @@ export async function verifyAcc(value: validateProps) {
 export async function forgotPassForm(formData: FormData) {
   try {
     await forgotPasswordEndpoint(formData)
-  } catch (error: any) {
+  } catch (error: unknown) {
     let errorMessage: string
-    if (error.response) {
-      if (error.response.status >= 500 && error.response.status < 600) {
-        errorMessage = 'Failed to fetch'
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number; data?: string[] } }
+      if (axiosError.response) {
+        if (axiosError.response.status && axiosError.response.status >= 500 && axiosError.response.status < 600) {
+          errorMessage = 'Failed to fetch'
+        } else {
+          if (axiosError.response.data && Array.isArray(axiosError.response.data) && axiosError.response.data.length > 0) {
+            const firstError = axiosError.response.data[0]
+            errorMessage = typeof firstError === 'string' ? firstError : 'Unknown error'
+          } else {
+            errorMessage = 'Unknown error'
+          }
+        }
       } else {
-        errorMessage = error.response.data[0]
+        errorMessage = 'Network error: Backend server is unreachable'
       }
-    } else if (error.request) {
+    } else if (error && typeof error === 'object' && 'request' in error) {
       errorMessage = 'Network error: Backend server is unreachable'
     } else {
-      errorMessage = `Error: ${error.message}`
+      errorMessage = `Error: ${error instanceof Error ? error.message : 'Unknown error'}`
     }
     throw new Error(errorMessage)
   }
@@ -336,7 +383,7 @@ export async function forgotPassForm(formData: FormData) {
 export async function validateToken(value: validateProps) {
   try {
     await validateTokenEndpoint(value)
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error validating token:', error)
     throw new Error('Invalid Token')
   }
@@ -349,12 +396,18 @@ export async function resetPassForm(formData: FormData) {
     const refresh = response.jwt_tokens.refresh
     newToken({ access, refresh })
     return response
-  } catch (error: any) {
+  } catch (error: unknown) {
     let errorMessage: string
-    if (error.response) {
-      errorMessage = error.response.data.new_password[0]
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { data?: { new_password?: string[] } } }
+      if (axiosError.response?.data?.new_password && Array.isArray(axiosError.response.data.new_password) && axiosError.response.data.new_password.length > 0) {
+        const firstError = axiosError.response.data.new_password[0]
+        errorMessage = typeof firstError === 'string' ? firstError : 'Unknown error'
+      } else {
+        errorMessage = 'Unknown error'
+      }
     } else {
-      errorMessage = `Error: ${error.message}`
+      errorMessage = `Error: ${error instanceof Error ? error.message : 'Unknown error'}`
     }
     throw new Error(errorMessage)
   }
@@ -363,12 +416,18 @@ export async function resetPassForm(formData: FormData) {
 export async function ChangePassForm(formData: FormData) {
   try {
     await changePasswordEndpoint(formData)
-  } catch (error: any) {
+  } catch (error: unknown) {
     let errorMessage: string
-    if (error.response) {
-      errorMessage = error.response.data.current_password[0]
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { data?: { current_password?: string[] } } }
+      if (axiosError.response?.data?.current_password && Array.isArray(axiosError.response.data.current_password) && axiosError.response.data.current_password.length > 0) {
+        const firstError = axiosError.response.data.current_password[0]
+        errorMessage = typeof firstError === 'string' ? firstError : 'Unknown error'
+      } else {
+        errorMessage = 'Unknown error'
+      }
     } else {
-      errorMessage = `Error: ${error.message}`
+      errorMessage = `Error: ${error instanceof Error ? error.message : 'Unknown error'}`
     }
     throw new Error(errorMessage)
   }
@@ -378,12 +437,18 @@ export async function deleteAccount(formData: FormData) {
   try {
     await deleteAccountEndpoint(formData)
     removeTokens()
-  } catch (error: any) {
+  } catch (error: unknown) {
     let errorMessage: string
-    if (error.response) {
-      errorMessage = error.response.data.current_password[0]
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { data?: { current_password?: string[] } } }
+      if (axiosError.response?.data?.current_password && Array.isArray(axiosError.response.data.current_password) && axiosError.response.data.current_password.length > 0) {
+        const firstError = axiosError.response.data.current_password[0]
+        errorMessage = typeof firstError === 'string' ? firstError : 'Unknown error'
+      } else {
+        errorMessage = 'Unknown error'
+      }
     } else {
-      errorMessage = `Error: ${error.message}`
+      errorMessage = `Error: ${error instanceof Error ? error.message : 'Unknown error'}`
     }
     throw new Error(errorMessage)
   }
@@ -392,12 +457,18 @@ export async function deleteAccount(formData: FormData) {
 export async function ChangeEmailForm(formData: FormData) {
   try {
     await changeEmailEndpoint(formData)
-  } catch (error: any) {
+  } catch (error: unknown) {
     let errorMessage: string
-    if (error.response) {
-      errorMessage = error.response.data.current_password[0]
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { data?: { current_password?: string[] } } }
+      if (axiosError.response?.data?.current_password && Array.isArray(axiosError.response.data.current_password) && axiosError.response.data.current_password.length > 0) {
+        const firstError = axiosError.response.data.current_password[0]
+        errorMessage = typeof firstError === 'string' ? firstError : 'Unknown error'
+      } else {
+        errorMessage = 'Unknown error'
+      }
     } else {
-      errorMessage = `Error: ${error.message}`
+      errorMessage = `Error: ${error instanceof Error ? error.message : 'Unknown error'}`
     }
     throw new Error(errorMessage)
   }

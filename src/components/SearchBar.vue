@@ -73,13 +73,12 @@ interface Props {
   searchFocused: boolean
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 const emit = defineEmits<{
   'update:searchFocused': [value: boolean]
 }>()
 
 const router = useRouter()
-const { t } = useI18n()
 const value = ref('')
 const debouncedValue = ref('')
 const inputRef = ref<HTMLInputElement | null>(null)
@@ -98,7 +97,7 @@ const stopWatch = watch(value, (newValue) => {
 
 // Use computed to ensure reactivity
 const searchTerm = computed(() => debouncedValue.value)
-const { data, isSuccess, isLoading, error } = useSearchQuery(searchTerm)
+const { data, isSuccess, isLoading } = useSearchQuery(searchTerm)
 
 const handleFocus = () => {
   emit('update:searchFocused', true)

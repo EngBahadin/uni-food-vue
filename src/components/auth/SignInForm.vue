@@ -8,7 +8,7 @@
       type="email"
       name="email"
       :label="$t('auth.email')"
-      IconType="email"
+      icon-type="email"
       :errors="errors"
       placeholder="eg. johndoe@example.com"
     />
@@ -18,7 +18,7 @@
       type="password"
       name="password"
       :label="$t('auth.password')"
-      IconType="password"
+      icon-type="password"
       :errors="errors"
       placeholder="Password"
     />

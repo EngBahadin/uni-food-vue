@@ -7,6 +7,7 @@
 
 import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { queryKeys } from './keys'
+import type { CartItem } from '../types'
 import {
   loginForm,
   signUpForm,
@@ -143,11 +144,11 @@ export const useUpdateCartItemMutation = () => {
       await queryClient.cancelQueries({ queryKey: queryKeys.cartItems })
       
       // Get previous cart items
-      const previousCartItems = queryClient.getQueryData(queryKeys.cartItems) as any[] | undefined
+      const previousCartItems = queryClient.getQueryData(queryKeys.cartItems) as CartItem[] | undefined
       
       if (previousCartItems) {
         // Find the item being updated
-        const item = previousCartItems.find((i: any) => i.id === itemId)
+        const item = previousCartItems.find((i) => i.id === itemId)
         if (item) {
           const qtyDiff = qty - item.qty
           if (qtyDiff > 0) {
@@ -186,11 +187,11 @@ export const useRemoveFromCartMutation = () => {
       await queryClient.cancelQueries({ queryKey: queryKeys.cartItems })
       
       // Get previous cart items
-      const previousCartItems = queryClient.getQueryData(queryKeys.cartItems) as any[] | undefined
+      const previousCartItems = queryClient.getQueryData(queryKeys.cartItems) as CartItem[] | undefined
       
       if (previousCartItems) {
         // Find the item being removed
-        const item = previousCartItems.find((i: any) => i.id === itemId)
+        const item = previousCartItems.find((i) => i.id === itemId)
         if (item) {
           // Optimistically remove quantity
           cartStore.removeQuantity(item.qty || 0)
@@ -214,7 +215,7 @@ export const useRemoveFromCartMutation = () => {
 
 export const useConfirmOrderMutation = () => {
   return useMutation({
-    mutationFn: (cartItems: any[]) => confirmOrderEndpoint(cartItems),
+    mutationFn: (cartItems: CartItem[]) => confirmOrderEndpoint(cartItems),
   })
 }
 

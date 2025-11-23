@@ -5,7 +5,6 @@ import { useI18n } from './useI18n'
 export function useZodValidation<T extends Record<string, unknown>>(
   schemaOrFactory: ZodSchema<T> | (() => ZodSchema<T>),
 ) {
-  const { t } = useI18n()
   const errors = ref<{ [key: string]: string | null }>({})
 
   const getSchema = (): ZodSchema<T> => {

@@ -42,7 +42,7 @@ interface Props {
   searchFocused?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   searchFocused: false,
 })
 

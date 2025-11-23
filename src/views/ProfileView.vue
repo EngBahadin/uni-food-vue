@@ -49,8 +49,11 @@ const handleComponent = (component: string) => {
 }
 
 watch(error, (newError) => {
-  if (newError && newError.response?.data?.code === 'user_inactive') {
-    router.push('/auth/signup/check-email')
+  if (newError && typeof newError === 'object' && 'response' in newError) {
+    const axiosError = newError as { response?: { data?: { code?: string } } }
+    if (axiosError.response?.data?.code === 'user_inactive') {
+      router.push('/auth/signup/check-email')
+    }
   }
 })
 </script>

@@ -72,9 +72,9 @@ const { data, isPending, isSuccess, error } = useFavoritesQuery(enabled)
 
 // Handle errors
 watch(error, (err) => {
-  if (err) {
-    const errorObj = err as any
-    if (errorObj?.response?.status === 401) {
+  if (err && typeof err === 'object' && 'response' in err) {
+    const errorObj = err as { response?: { status?: number; data?: { code?: string } } }
+    if (errorObj.response?.status === 401) {
       if (errorObj.response?.data?.code === 'user_inactive') {
         router.push('/auth/signup/check-email')
       } else if (errorObj.response?.data?.code === 'token_not_valid') {

@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { useQueryClient } from '@tanstack/vue-query'
 import { getToken } from '../utils/auth'
 import { queryKeys } from '../../services/keys'
+import type { CartItem } from '../../types'
 
 export const useCartStore = defineStore('cart', () => {
   const queryClient = useQueryClient()
@@ -12,7 +13,7 @@ export const useCartStore = defineStore('cart', () => {
 
   // Get cart items from query cache reactively
   const getCartItems = () => {
-    return queryClient.getQueryData(queryKeys.cartItems) as any[] | undefined
+    return queryClient.getQueryData(queryKeys.cartItems) as CartItem[] | undefined
   }
 
   // Computed cart quantity - uses optimistic value if available, otherwise reads from query cache
@@ -32,7 +33,7 @@ export const useCartStore = defineStore('cart', () => {
     const cartItems = getCartItems()
     if (!cartItems || cartItems.length === 0) return 0
     
-    const quantity = cartItems.reduce((total: number, item: any) => total + (item.qty || 0), 0)
+    const quantity = cartItems.reduce((total: number, item: CartItem) => total + (item.qty || 0), 0)
     return quantity
   })
 
@@ -59,7 +60,7 @@ export const useCartStore = defineStore('cart', () => {
   const syncQuantity = () => {
     const cartItems = getCartItems()
     if (cartItems && cartItems.length > 0) {
-      const quantity = cartItems.reduce((total: number, item: any) => total + (item.qty || 0), 0)
+      const quantity = cartItems.reduce((total: number, item: CartItem) => total + (item.qty || 0), 0)
       optimisticQuantity.value = quantity
     } else {
       optimisticQuantity.value = 0

@@ -8,7 +8,7 @@
       name="username"
       :label="$t('profile.userProfile')"
       type="text"
-      IconType="user"
+      icon-type="user"
       :errors="errors"
       placeholder="e.g., John Doe"
     />
@@ -17,7 +17,7 @@
       type="email"
       name="email"
       :label="$t('auth.email')"
-      IconType="email"
+      icon-type="email"
       :errors="errors"
       placeholder="e.g., johndoe@example.com"
     />
@@ -26,7 +26,7 @@
       type="password"
       name="password"
       :label="$t('auth.password')"
-      IconType="password"
+      icon-type="password"
       :errors="errors"
       placeholder="Enter your password"
     />
@@ -35,7 +35,7 @@
       type="password"
       name="re_password"
       :label="$t('auth.confirmPassword')"
-      IconType="password"
+      icon-type="password"
       :errors="errors"
       placeholder="Re-enter your password"
     />
@@ -86,14 +86,16 @@ const formData = ref({
 
 watch([isError, isSuccess], () => {
   if (isError.value) {
-    if (error.value && (error.value as any).cause) {
-      const cause = (error.value as any).cause
-      Object.entries(cause).forEach(([key, value]) => {
-        const errorMessage = Array.isArray(value) && value.length > 0 ? (value[0] as string) : null
-        if (errorMessage) {
-          setError(key, errorMessage)
-        }
-      })
+    if (error.value && typeof error.value === 'object' && 'cause' in error.value) {
+      const cause = (error.value as { cause?: Record<string, unknown> }).cause
+      if (cause) {
+        Object.entries(cause).forEach(([key, value]) => {
+          const errorMessage = Array.isArray(value) && value.length > 0 ? (value[0] as string) : null
+          if (errorMessage) {
+            setError(key, errorMessage)
+          }
+        })
+      }
     } else if (error.value) {
       toast.error(error.value.message || 'An unexpected error occurred.')
     }

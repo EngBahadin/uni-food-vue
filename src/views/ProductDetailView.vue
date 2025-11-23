@@ -322,8 +322,7 @@ const decreaseQuantity = () => {
 }
 
 // Cart store and mutation
-const cartStore = useCartStore()
-const { mutate: addToCartMutation, isPending: isAddingToCart } = useAddToCartMutation()
+const { mutate: addToCartMutation } = useAddToCartMutation()
 
 const addToCart = () => {
   if (!foodItem.value) return
@@ -353,7 +352,7 @@ const addToCart = () => {
         // Cart quantity is updated optimistically via onMutate
         toast.success('Item added to cart successfully')
       },
-      onError: (error: any) => {
+      onError: () => {
         toast.error('Error adding to cart. Please try again.')
       },
     }

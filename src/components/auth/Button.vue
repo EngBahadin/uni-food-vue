@@ -11,9 +11,7 @@
   </button>
 </template>
 
-<script setup lang="ts">
-import type { ButtonProps } from '../../../types'
-
+<script setup lang="ts" name="AuthButton">
 defineProps<{
   isPending: boolean
   disabled?: boolean
