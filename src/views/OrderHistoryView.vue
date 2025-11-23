@@ -106,8 +106,6 @@ const router = useRouter()
 
 const currentStatus = computed(() => route.params.status as string | undefined)
 
-const token = computed(() => getToken())
-
 const {
   data: preparingData,
   isPending: isPreparingPending,

@@ -62,7 +62,10 @@
   </div>
 </template>
 
-<script setup lang="ts" name="AuthInput">
+<script setup lang="ts">
+defineOptions({
+  name: 'AuthInput'
+})
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
 import type { IconType } from '../../../types'

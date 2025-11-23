@@ -1,6 +1,5 @@
 import { ref } from 'vue'
 import type { ZodSchema } from 'zod'
-import { useI18n } from './useI18n'
 
 export function useZodValidation<T extends Record<string, unknown>>(
   schemaOrFactory: ZodSchema<T> | (() => ZodSchema<T>),

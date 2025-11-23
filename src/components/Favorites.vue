@@ -16,7 +16,10 @@
   </span>
 </template>
 
-<script setup lang="ts" name="FavoritesIcon">
+<script setup lang="ts">
+defineOptions({
+  name: 'FavoritesIcon'
+})
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'

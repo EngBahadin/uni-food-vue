@@ -225,7 +225,6 @@ import { toast } from 'vue-sonner'
 import { useFoodItemQuery } from '../../services/query'
 import { extras, drinks } from '../../lib/utils'
 import { useAddToCartMutation } from '../../services/actions'
-import { useCartStore } from '../stores/cart'
 import { getToken } from '../utils/auth'
 
 const route = useRoute()

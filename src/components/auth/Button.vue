@@ -11,7 +11,10 @@
   </button>
 </template>
 
-<script setup lang="ts" name="AuthButton">
+<script setup lang="ts">
+defineOptions({
+  name: 'AuthButton'
+})
 defineProps<{
   isPending: boolean
   disabled?: boolean
