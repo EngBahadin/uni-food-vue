@@ -1,10 +1,10 @@
-import api, { apiAuth, apiClient } from '../lib/axios'
+import api, { apiAuth, apiClient, fibApi } from '../lib/axios'
 import type { validateProps, CartItem } from '../types'
 import { newToken, removeTokens, addUserEmail, getToken } from '../src/utils/auth'
 
 /**
  * API Endpoint Functions
- * 
+ *
  * This file contains all endpoint request functions.
  * No business logic, no hooks - just API calls.
  * Use these functions in query.ts hooks or actions.ts mutations.
@@ -14,7 +14,7 @@ import { newToken, removeTokens, addUserEmail, getToken } from '../src/utils/aut
 
 export async function getCategories() {
   const response = await apiClient.get('/api/categories/')
-    return response.data
+  return response.data
 }
 
 export async function getFoodItemsByCategory(categoryId: number) {
@@ -110,13 +110,8 @@ export async function searchFoodItems(searchTerm: string) {
 }
 
 export async function getFavorites() {
-  try {
-    const response = await api.get('api/favorites/')
-    return response.data
-  } catch (error: unknown) {
-    // Re-throw to let the query handle it
-    throw error
-  }
+  const response = await api.get('api/favorites/')
+  return response.data
 }
 
 // ==================== POST/PUT/PATCH/DELETE Requests ====================
@@ -199,7 +194,10 @@ export async function resendActivationEndpoint(email: string) {
 
 // Cart endpoints
 export async function addToCartEndpoint(foodItemId: number, sizePrice?: number, qty: number = 1) {
-  const data: { food_item: number; qty: number; size_price?: number } = { food_item: foodItemId, qty }
+  const data: { food_item: number; qty: number; size_price?: number } = {
+    food_item: foodItemId,
+    qty,
+  }
   if (sizePrice) {
     data.size_price = sizePrice
   }
@@ -247,7 +245,11 @@ export async function loginForm(formData: FormData) {
     if (error && typeof error === 'object' && 'response' in error) {
       const axiosError = error as { response?: { status?: number } }
       if (axiosError.response) {
-        if (axiosError.response.status && axiosError.response.status >= 500 && axiosError.response.status < 600) {
+        if (
+          axiosError.response.status &&
+          axiosError.response.status >= 500 &&
+          axiosError.response.status < 600
+        ) {
           errorMessage = 'Failed to fetch'
         } else {
           errorMessage = `${axiosError.response.status === 401 ? 'Unauthorized' : ''} `
@@ -276,8 +278,8 @@ export async function signUpForm(formData: FormData) {
   } catch (error: unknown) {
     let errorMessage: string
     if (error && typeof error === 'object' && 'response' in error) {
-      const axiosError = error as { 
-        response?: { 
+      const axiosError = error as {
+        response?: {
           status?: number
           data?: {
             detail?: string
@@ -290,8 +292,13 @@ export async function signUpForm(formData: FormData) {
       if (axiosError.response) {
         if (axiosError.response.status === 400) {
           errorMessage = `${axiosError.response.status}: Invalid data`
-        } else if (axiosError.response.status && axiosError.response.status >= 500 && axiosError.response.status < 600) {
-          const errorDetail = axiosError.response.data?.detail || axiosError.response.data?.message || ''
+        } else if (
+          axiosError.response.status &&
+          axiosError.response.status >= 500 &&
+          axiosError.response.status < 600
+        ) {
+          const errorDetail =
+            axiosError.response.data?.detail || axiosError.response.data?.message || ''
           if (errorDetail.includes('SMTP') || errorDetail.includes('email')) {
             if (axiosError.response.data?.jwt_tokens) {
               const access = axiosError.response.data.jwt_tokens.access
@@ -333,7 +340,11 @@ export async function verifyAcc(value: validateProps) {
     if (error && typeof error === 'object' && 'response' in error) {
       const axiosError = error as { response?: { status?: number } }
       if (axiosError.response) {
-        if (axiosError.response.status && axiosError.response.status >= 500 && axiosError.response.status < 600) {
+        if (
+          axiosError.response.status &&
+          axiosError.response.status >= 500 &&
+          axiosError.response.status < 600
+        ) {
           errorMessage = 'Failed to fetch'
         } else {
           errorMessage = `${axiosError.response.status}: Invalid link`
@@ -358,10 +369,18 @@ export async function forgotPassForm(formData: FormData) {
     if (error && typeof error === 'object' && 'response' in error) {
       const axiosError = error as { response?: { status?: number; data?: string[] } }
       if (axiosError.response) {
-        if (axiosError.response.status && axiosError.response.status >= 500 && axiosError.response.status < 600) {
+        if (
+          axiosError.response.status &&
+          axiosError.response.status >= 500 &&
+          axiosError.response.status < 600
+        ) {
           errorMessage = 'Failed to fetch'
         } else {
-          if (axiosError.response.data && Array.isArray(axiosError.response.data) && axiosError.response.data.length > 0) {
+          if (
+            axiosError.response.data &&
+            Array.isArray(axiosError.response.data) &&
+            axiosError.response.data.length > 0
+          ) {
             const firstError = axiosError.response.data[0]
             errorMessage = typeof firstError === 'string' ? firstError : 'Unknown error'
           } else {
@@ -400,7 +419,11 @@ export async function resetPassForm(formData: FormData) {
     let errorMessage: string
     if (error && typeof error === 'object' && 'response' in error) {
       const axiosError = error as { response?: { data?: { new_password?: string[] } } }
-      if (axiosError.response?.data?.new_password && Array.isArray(axiosError.response.data.new_password) && axiosError.response.data.new_password.length > 0) {
+      if (
+        axiosError.response?.data?.new_password &&
+        Array.isArray(axiosError.response.data.new_password) &&
+        axiosError.response.data.new_password.length > 0
+      ) {
         const firstError = axiosError.response.data.new_password[0]
         errorMessage = typeof firstError === 'string' ? firstError : 'Unknown error'
       } else {
@@ -420,7 +443,11 @@ export async function ChangePassForm(formData: FormData) {
     let errorMessage: string
     if (error && typeof error === 'object' && 'response' in error) {
       const axiosError = error as { response?: { data?: { current_password?: string[] } } }
-      if (axiosError.response?.data?.current_password && Array.isArray(axiosError.response.data.current_password) && axiosError.response.data.current_password.length > 0) {
+      if (
+        axiosError.response?.data?.current_password &&
+        Array.isArray(axiosError.response.data.current_password) &&
+        axiosError.response.data.current_password.length > 0
+      ) {
         const firstError = axiosError.response.data.current_password[0]
         errorMessage = typeof firstError === 'string' ? firstError : 'Unknown error'
       } else {
@@ -441,7 +468,11 @@ export async function deleteAccount(formData: FormData) {
     let errorMessage: string
     if (error && typeof error === 'object' && 'response' in error) {
       const axiosError = error as { response?: { data?: { current_password?: string[] } } }
-      if (axiosError.response?.data?.current_password && Array.isArray(axiosError.response.data.current_password) && axiosError.response.data.current_password.length > 0) {
+      if (
+        axiosError.response?.data?.current_password &&
+        Array.isArray(axiosError.response.data.current_password) &&
+        axiosError.response.data.current_password.length > 0
+      ) {
         const firstError = axiosError.response.data.current_password[0]
         errorMessage = typeof firstError === 'string' ? firstError : 'Unknown error'
       } else {
@@ -461,7 +492,11 @@ export async function ChangeEmailForm(formData: FormData) {
     let errorMessage: string
     if (error && typeof error === 'object' && 'response' in error) {
       const axiosError = error as { response?: { data?: { current_password?: string[] } } }
-      if (axiosError.response?.data?.current_password && Array.isArray(axiosError.response.data.current_password) && axiosError.response.data.current_password.length > 0) {
+      if (
+        axiosError.response?.data?.current_password &&
+        Array.isArray(axiosError.response.data.current_password) &&
+        axiosError.response.data.current_password.length > 0
+      ) {
         const firstError = axiosError.response.data.current_password[0]
         errorMessage = typeof firstError === 'string' ? firstError : 'Unknown error'
       } else {
@@ -488,4 +523,144 @@ export async function getPreparedOrders() {
 export async function getEstimatedTime() {
   const response = await api.get('api/order/estimated-time/')
   return response.data
+}
+
+// ==================== FIB Payment Gateway ====================
+
+export interface FIBTokenResponse {
+  access_token: string
+  expires_in: number
+  refresh_expires_in: number
+  token_type: string
+  'not-before-policy': number
+  scope: string
+}
+
+export interface FIBPaymentRequest {
+  monetaryValue: {
+    amount: string
+    currency: 'IQD'
+  }
+  statusCallbackUrl?: string
+  description?: string
+  redirectUri?: string
+  expiresIn?: string
+  category?:
+    | 'ERP'
+    | 'POS'
+    | 'ECOMMERCE'
+    | 'UTILITY'
+    | 'PAYROLL'
+    | 'SUPPLIER'
+    | 'LOAN'
+    | 'GOVERNMENT'
+    | 'MISCELLANEOUS'
+    | 'OTHER'
+  refundableFor?: string
+}
+
+export interface FIBPaymentResponse {
+  paymentId: string
+  readableCode: string
+  qrCode: string
+  validUntil: string
+  personalAppLink: string
+  businessAppLink: string
+}
+
+export interface FIBPaymentStatus {
+  paymentId: string
+  status: 'PAID' | 'UNPAID' | 'DECLINED' | 'REFUND_REQUESTED' | 'REFUNDED'
+  validUntil: string
+  paidAt: string | null
+  amount: {
+    amount: number
+    currency: string
+  }
+  decliningReason: 'SERVER_FAILURE' | 'PAYMENT_EXPIRATION' | 'PAYMENT_CANCELLATION' | null
+  declinedAt: string | null
+  paidBy: {
+    name: string
+    iban: string
+  } | null
+}
+
+export async function getFIBAccessToken(): Promise<string> {
+  const clientId = import.meta.env.VITE_FIB_CLIENT_ID?.trim()
+  const clientSecret = import.meta.env.VITE_FIB_CLIENT_SECRET?.trim()
+
+  if (!clientId || !clientSecret) {
+    throw new Error(
+      'FIB Payment credentials are not configured. Please set VITE_FIB_CLIENT_ID and VITE_FIB_CLIENT_SECRET in your .env file.',
+    )
+  }
+
+  const params = new URLSearchParams()
+  params.append('grant_type', 'client_credentials')
+  params.append('client_id', clientId)
+  params.append('client_secret', clientSecret)
+
+  try {
+    const response = await fibApi.post<FIBTokenResponse>(
+      '/auth/realms/fib-online-shop/protocol/openid-connect/token',
+      params,
+    )
+    return response.data.access_token
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as {
+        response?: { data?: { error?: string; error_description?: string } }
+      }
+      if (axiosError.response?.data?.error === 'invalid_client') {
+        throw new Error(
+          `Invalid FIB credentials: ${axiosError.response.data.error_description || 'Invalid client credentials'}`,
+        )
+      }
+      throw new Error(
+        axiosError.response?.data?.error_description ||
+          'Failed to authenticate with FIB payment gateway',
+      )
+    }
+    throw new Error('Failed to authenticate with FIB payment gateway')
+  }
+}
+
+export async function createFIBPayment(
+  paymentData: FIBPaymentRequest,
+  accessToken: string,
+): Promise<FIBPaymentResponse> {
+  const response = await fibApi.post<FIBPaymentResponse>('/protected/v1/payments', paymentData, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+  return response.data
+}
+
+export async function checkFIBPaymentStatus(
+  paymentId: string,
+  accessToken: string,
+): Promise<FIBPaymentStatus> {
+  const response = await fibApi.get<FIBPaymentStatus>(
+    `/protected/v1/payments/${paymentId}/status`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  )
+  return response.data
+}
+
+export async function cancelFIBPayment(paymentId: string, accessToken: string): Promise<void> {
+  await fibApi.post(
+    `/protected/v1/payments/${paymentId}/cancel`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  )
 }

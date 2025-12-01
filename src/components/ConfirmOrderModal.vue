@@ -25,7 +25,7 @@
           <div class="flex gap-4">
             <button
               @click="handleCancel"
-              class="flex-1 bg-gray-200 text-black py-3 rounded-lg hover:bg-gray-300 transition-all active:scale-95 font-medium md:text-text-1-regular text-text-2-regular"
+              class="flex-1 bg-gray-500 text-pure-white py-3 rounded-lg hover:bg-gray-300 transition-all active:scale-95 font-medium md:text-text-1-regular text-text-2-regular"
             >
               {{ $t('cart.cancel') }}
             </button>
@@ -111,7 +111,9 @@ const handleConfirm = () => {
 
 .modal-enter-active .bg-white,
 .modal-leave-active .bg-white {
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .modal-enter-from .bg-white,
@@ -120,5 +122,3 @@ const handleConfirm = () => {
   opacity: 0;
 }
 </style>
-
-

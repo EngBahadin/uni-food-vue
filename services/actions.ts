@@ -244,3 +244,41 @@ export const useChangeUsernameMutation = () => {
     mutationFn: (data: { new_username: string }) => changeUsernameEndpoint(data),
   })
 }
+
+// ==================== FIB Payment Mutation Hooks ====================
+
+import {
+  getFIBAccessToken,
+  createFIBPayment,
+  checkFIBPaymentStatus,
+  cancelFIBPayment,
+  type FIBPaymentRequest,
+} from './api'
+
+export const useFIBGetTokenMutation = () => {
+  return useMutation({
+    mutationFn: getFIBAccessToken,
+  })
+}
+
+export const useCreateFIBPaymentMutation = () => {
+  return useMutation({
+    mutationFn: ({ paymentData, accessToken }: { paymentData: FIBPaymentRequest; accessToken: string }) =>
+      createFIBPayment(paymentData, accessToken),
+  })
+}
+
+export const useCheckFIBPaymentStatusMutation = () => {
+  return useMutation({
+    mutationFn: ({ paymentId, accessToken }: { paymentId: string; accessToken: string }) =>
+      checkFIBPaymentStatus(paymentId, accessToken),
+  })
+}
+
+export const useCancelFIBPaymentMutation = () => {
+  return useMutation({
+    mutationFn: ({ paymentId, accessToken }: { paymentId: string; accessToken: string }) =>
+      cancelFIBPayment(paymentId, accessToken),
+  })
+}
+

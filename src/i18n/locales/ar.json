@@ -45,7 +45,30 @@
     "orderSummary": "ملخص الطلب",
     "confirm": "تأكيد",
     "cancel": "إلغاء",
-    "areYouSure": "هل أنت متأكد أنك تريد تأكيد هذا الطلب؟"
+    "areYouSure": "هل أنت متأكد أنك تريد تأكيد هذا الطلب؟",
+    "selectPaymentMethod": "اختر طريقة الدفع",
+    "paymentMethod": "طريقة الدفع",
+    "payWithFIB": "الدفع عبر FIB",
+    "payOnDelivery": "الدفع عند الاستلام",
+    "processingPayment": "جاري معالجة الدفع...",
+    "paymentSuccess": "تم الدفع بنجاح!",
+    "paymentFailed": "فشل الدفع. يرجى المحاولة مرة أخرى.",
+    "scanQRCode": "امسح رمز QR",
+    "orEnterCode": "أو أدخل الرمز يدوياً",
+    "paymentCode": "رمز الدفع",
+    "openInApp": "افتح في تطبيق FIB",
+    "personalApp": "تطبيق شخصي",
+    "businessApp": "تطبيق تجاري",
+    "checkingStatus": "جاري التحقق من حالة الدفع...",
+    "paymentPending": "الدفع معلق. يرجى إكمال الدفع.",
+    "paymentExpired": "انتهت صلاحية الدفع. يرجى إنشاء دفعة جديدة.",
+    "copyLink": "نسخ الرابط",
+    "paymentCodeCopied": "تم نسخ رمز الدفع إلى الحافظة!",
+    "paymentInformationMissing": "معلومات الدفع مفقودة",
+    "paymentSuccessful": "تم الدفع بنجاح!",
+    "paymentDeclined": "تم رفض الدفع",
+    "checkPaymentStatusFailed": "فشل التحقق من حالة الدفع",
+    "checkPaymentStatus": "التحقق من حالة الدفع"
   },
   "favorites": {
     "title": "المفضلة",
@@ -134,6 +157,11 @@
     "reOrder": "إعادة الطلب",
     "goodVibes": "🎉 أجواء إيجابية فقط! طعامك جاهز تقريباً. تحقق مرة أخرى بين",
     "cancelOrder": "إلغاء الطلب",
-    "confirm": "تأكيد"
+    "confirm": "تأكيد",
+    "paidWithFIB": "مدفوع عبر FIB",
+    "paymentCancelled": "تم إلغاء الدفع بنجاح",
+    "cancelPaymentFailed": "فشل إلغاء الدفع. يرجى المحاولة مرة أخرى.",
+    "cancelPayment": "إلغاء الدفع",
+    "cancelling": "جاري الإلغاء..."
   }
 }

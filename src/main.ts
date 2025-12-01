@@ -8,6 +8,7 @@ import 'vue-sonner/style.css'
 import { useTheme } from './composables/useTheme'
 import { VueQueryPlugin, QueryClient } from '@tanstack/vue-query'
 import i18n from './i18n'
+import { clearOldPayments } from './utils/paymentStorage'
 
 // Initialize theme before creating app to prevent FOUC
 const { initTheme } = useTheme()
@@ -21,6 +22,9 @@ if (savedLocale === 'ar' || savedLocale === 'ckb') {
 } else {
   document.documentElement.dir = 'ltr'
 }
+
+// Clean up old payment info (older than 30 days)
+clearOldPayments()
 
 // Create a query client with default options
 const queryClient = new QueryClient({

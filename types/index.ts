@@ -99,6 +99,8 @@ export interface OrderedFood {
   total_price: number
   estimated_time: string
   order_items: OrderItem[]
+  payment_method?: 'FIB' | 'DELIVERY'
+  fib_payment_id?: string
 }
 
 export interface OrderItem {

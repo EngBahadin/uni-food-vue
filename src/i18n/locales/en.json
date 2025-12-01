@@ -45,7 +45,30 @@
     "orderSummary": "Order summary",
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "areYouSure": "Are you sure you want to confirm this order?"
+    "areYouSure": "Are you sure you want to confirm this order?",
+    "selectPaymentMethod": "Select Payment Method",
+    "paymentMethod": "Payment Method",
+    "payWithFIB": "Pay with FIB",
+    "payOnDelivery": "Pay on Delivery",
+    "processingPayment": "Processing payment...",
+    "paymentSuccess": "Payment successful!",
+    "paymentFailed": "Payment failed. Please try again.",
+    "scanQRCode": "Scan QR Code",
+    "orEnterCode": "Or enter code manually",
+    "paymentCode": "Payment Code",
+    "openInApp": "Open in FIB App",
+    "personalApp": "Personal App",
+    "businessApp": "Business App",
+    "checkingStatus": "Checking payment status...",
+    "paymentPending": "Payment pending. Please complete the payment.",
+    "paymentExpired": "Payment has expired. Please create a new payment.",
+    "copyLink": "Copy Link",
+    "paymentCodeCopied": "Payment code copied to clipboard!",
+    "paymentInformationMissing": "Payment information is missing",
+    "paymentSuccessful": "Payment successful!",
+    "paymentDeclined": "Payment was declined",
+    "checkPaymentStatusFailed": "Failed to check payment status",
+    "checkPaymentStatus": "Check Payment Status"
   },
   "favorites": {
     "title": "Favorites",
@@ -134,6 +157,11 @@
     "reOrder": "Re-Order",
     "goodVibes": "🎉 Good vibes only! Your food's almost ready. Check back between",
     "cancelOrder": "Cancel Order",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "paidWithFIB": "Paid with FIB",
+    "paymentCancelled": "Payment cancelled successfully",
+    "cancelPaymentFailed": "Failed to cancel payment. Please try again.",
+    "cancelPayment": "Cancel Payment",
+    "cancelling": "Cancelling..."
   }
 }

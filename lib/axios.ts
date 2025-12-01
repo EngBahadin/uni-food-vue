@@ -66,3 +66,13 @@ export const apiAuth = axios.create({
     'Content-Type': 'application/json',
   },
 })
+
+// FIB Payment Gateway API
+const FIB_BASE_URL = import.meta.env.VITE_FIB_BASE_URL || 'https://fib.stage.fib.iq'
+
+export const fibApi = axios.create({
+  baseURL: FIB_BASE_URL,
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+})

@@ -9,7 +9,9 @@
         <h2 class="lg:text-body-3-medium md:text-body-4-medium text-text-1-medium text-black">
           {{ $t('orderHistory.foodId') }} : #{{ item.id }}
         </h2>
-        <p class="lg:text-text-2-regular md:text-text-3-regular text-caption-1-regular text-gray-100">
+        <p
+          class="lg:text-text-2-regular md:text-text-3-regular text-caption-1-regular text-gray-100"
+        >
           {{ formatDate(item.created_at) }}
         </p>
       </span>
@@ -33,6 +35,13 @@
         <p class="lg:text-text-2-medium md:text-text-3-medium text-caption-1-medium text-gray-100">
           {{ $t('orderHistory.total') }}: {{ item.total_price }} IQD
         </p>
+        <div
+          v-if="isFIBPayment"
+          class="mt-2 inline-flex items-center gap-1 bg-primary/10 text-primary px-2 py-1 rounded-lg"
+        >
+          <Icon icon="mdi:credit-card" class="w-4 h-4" />
+          <span class="text-xs font-medium">{{ $t('orderHistory.paidWithFIB') }}</span>
+        </div>
       </span>
     </div>
 
@@ -87,6 +96,7 @@ import { Icon } from '@iconify/vue'
 import type { OrderedFood, OrderItem } from '../../types'
 import { addMinutesToTime } from '../utils/timeUtils'
 import ConfirmModal from './ConfirmModal.vue'
+import { getPaymentInfo } from '../utils/paymentStorage'
 
 interface Props {
   item: OrderedFood
@@ -98,6 +108,11 @@ const router = useRouter()
 const foods = ref<OrderItem[]>([])
 const currentFoodIndex = ref(0)
 const showModal = ref(false)
+
+const isFIBPayment = computed(() => {
+  const paymentInfo = getPaymentInfo(props.item.id)
+  return paymentInfo?.payment_method === 'FIB' || props.item.payment_method === 'FIB'
+})
 
 watch(
   () => props.item?.order_items,
@@ -147,4 +162,3 @@ const formatDate = (dateString: string) => {
   })
 }
 </script>
-

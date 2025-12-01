@@ -128,6 +128,23 @@
 
     <!-- Confirm Order Modal -->
     <ConfirmOrderModal :show="showModal" @close="showModal = false" @confirm="handleConfirmOrder" />
+
+    <!-- Payment Method Selection Modal -->
+    <PaymentMethodModal
+      :show="showPaymentMethodModal"
+      @close="showPaymentMethodModal = false"
+      @confirm="handlePaymentMethodSelected"
+    />
+
+    <!-- FIB Payment Modal -->
+    <FIBPaymentModal
+      :show="showFIBPaymentModal"
+      :payment-id="fibPaymentId"
+      :access-token="fibAccessToken"
+      :payment-data="fibPaymentData"
+      @close="handleFIBPaymentClose"
+      @payment-success="handleFIBPaymentSuccess"
+    />
   </section>
 </template>
 
@@ -139,6 +156,7 @@ import { Icon } from '@iconify/vue'
 import { toast } from 'vue-sonner'
 import { getToken } from '../utils/auth'
 import { useCartItemsQuery } from '../../services/query'
+import { savePaymentInfo } from '../utils/paymentStorage'
 import {
   useUpdateCartItemMutation,
   useRemoveFromCartMutation,
@@ -147,12 +165,24 @@ import {
 import { queryKeys } from '../../services/keys'
 import { useCartStore } from '../stores/cart'
 import ConfirmOrderModal from '../components/ConfirmOrderModal.vue'
+import PaymentMethodModal from '../components/PaymentMethodModal.vue'
+import FIBPaymentModal from '../components/FIBPaymentModal.vue'
 import type { CartItem } from '../../types'
+import type { FIBPaymentRequest, FIBPaymentResponse } from '../../services/api'
+import { useFIBGetTokenMutation, useCreateFIBPaymentMutation } from '../../services/actions'
 
 const router = useRouter()
 const queryClient = useQueryClient()
 const cartStore = useCartStore()
 const showModal = ref(false)
+const showPaymentMethodModal = ref(false)
+const showFIBPaymentModal = ref(false)
+const fibPaymentId = ref<string | null>(null)
+const fibAccessToken = ref<string | null>(null)
+const fibPaymentData = ref<FIBPaymentResponse | null>(null)
+
+const { mutate: getFIBToken } = useFIBGetTokenMutation()
+const { mutate: createFIBPayment } = useCreateFIBPaymentMutation()
 
 const token = computed(() => getToken())
 const enabled = computed(() => !!token.value)
@@ -205,11 +235,32 @@ const removeFromCart = (itemId: string) => {
 
 const handleConfirmOrder = () => {
   if (!data.value) return
+  showModal.value = false
+  // Show payment method selection
+  showPaymentMethodModal.value = true
+}
+
+const handlePaymentMethodSelected = (method: 'FIB' | 'DELIVERY') => {
+  showPaymentMethodModal.value = false
+
+  if (method === 'DELIVERY') {
+    // Proceed with regular order (pay on delivery)
+    proceedWithOrder()
+  } else if (method === 'FIB') {
+    // Initiate FIB payment
+    initiateFIBPayment()
+  }
+}
+
+const proceedWithOrder = () => {
+  if (!data.value) return
 
   confirmOrder(data.value, {
     onSuccess: (response) => {
+      if (response.order?.id) {
+        savePaymentInfo(response.order.id, 'DELIVERY')
+      }
       cartStore.clearCart()
-      showModal.value = false
       toast.success(
         `Thank you for your order! 🎉 We'll have it ready by ${response.order.estimated_time}. Enjoy!`,
       )
@@ -217,6 +268,79 @@ const handleConfirmOrder = () => {
     },
     onError: () => {
       toast.error('Failed to confirm order. Please try again.')
+    },
+  })
+}
+
+const initiateFIBPayment = () => {
+  if (!data.value) return
+
+  getFIBToken(undefined, {
+    onSuccess: (token) => {
+      fibAccessToken.value = token
+      const amount = totalPrice.value.toString()
+
+      const paymentRequest: FIBPaymentRequest = {
+        monetaryValue: {
+          amount,
+          currency: 'IQD',
+        },
+        description: `Order from UniFood - ${data.value?.length || 0} items`,
+        category: 'ECOMMERCE',
+        statusCallbackUrl: `${window.location.origin}/api/payment-callback`,
+        redirectUri: `${window.location.origin}/order-success`,
+      }
+
+      createFIBPayment(
+        { paymentData: paymentRequest, accessToken: token },
+        {
+          onSuccess: (paymentResponse) => {
+            fibPaymentId.value = paymentResponse.paymentId
+            fibPaymentData.value = paymentResponse
+            showFIBPaymentModal.value = true
+          },
+          onError: (error) => {
+            const errorMessage =
+              error instanceof Error ? error.message : 'Failed to create payment. Please try again.'
+            toast.error(errorMessage)
+          },
+        },
+      )
+    },
+    onError: (error) => {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'Failed to authenticate with payment gateway. Please check your FIB credentials in the .env file.'
+      toast.error(errorMessage)
+    },
+  })
+}
+
+const handleFIBPaymentClose = () => {
+  showFIBPaymentModal.value = false
+  fibPaymentId.value = null
+  fibAccessToken.value = null
+  fibPaymentData.value = null
+}
+
+const handleFIBPaymentSuccess = () => {
+  if (!data.value) return
+
+  confirmOrder(data.value, {
+    onSuccess: (response) => {
+      if (response.order?.id) {
+        savePaymentInfo(response.order.id, 'FIB')
+      }
+      cartStore.clearCart()
+      showFIBPaymentModal.value = false
+      toast.success(
+        `Thank you for your order! 🎉 We'll have it ready by ${response.order.estimated_time}. Enjoy!`,
+      )
+      router.push('/')
+    },
+    onError: () => {
+      toast.error('Payment successful but failed to create order. Please contact support.')
     },
   })
 }
